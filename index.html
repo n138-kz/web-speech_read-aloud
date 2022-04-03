@@ -24,12 +24,9 @@ function speak(){
 }
 
 function sleep(time){
-  var date_1 = new Date().getTime();
-  var date_2 = new Date().getTime();
-  while (date_2 < date_1 + time){
-    date_2 = new Date().getTime();
-  }
-  return;
+    var startMsec = new Date();
+    while ((new Date() - startMsec) < time);
+    return;
 };
 </script>
 
