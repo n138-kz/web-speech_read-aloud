@@ -3,6 +3,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>音声合成::音声読み上げ</title>
+		<script src="readAloud-Core.js"></script>
 	</head>
 	<body>
 		<h1>音声合成::音声読み上げ</h1>
@@ -15,34 +16,6 @@
 				width: 500px; height: 100px; font-size: 40px;
 			}
 		</style>
-		<button onclick="speak()" style="width: 80px; height: 30px;">Synthesis</button>
-		<div id="errorMesg"></div>
-
-		<!-- スクリプト部分 -->
-		<script>
-			function speak(){
-				if ('speechSynthesis' in window) {
-					document.getElementById('errorMesg').innerText = 'Speech Synthesis is supported in this browser. :)';
-				} else {
-					document.getElementById('errorMesg').innerText = 'Speech Synthesis is NOT supported in this browser. :(';
-				}
-
-				var speak   = new SpeechSynthesisUtterance();
-				speak.text  = document.querySelector('#sample_textbox').value;
-				speak.rate  = 1; // 読み上げ速度 0.1-10 初期値:1 (倍速なら2, 半分の倍速なら0.5, )
-				speak.pitch = 0; // 声の高さ 0-2 初期値:1(0で女性の声) 
-				speak.lang  = 'ja-JP'; //(日本語:ja-JP, アメリカ英語:en-US, イギリス英語:en-GB, 中国語:zh-CN, 韓国語:ko-KR)
-
-				sleep(2000);
-				speechSynthesis.speak(speak);
-			}
-
-			function sleep(time){
-				var startMsec = new Date();
-				while ((new Date() - startMsec) < time);
-				return;
-			};
-		</script>
-
+		<button onclick="readAloud(document.querySelector('#sample_textbox').value)" style="width: 80px; height: 30px;">Synthesis</button>
 	</body>
 </html>
