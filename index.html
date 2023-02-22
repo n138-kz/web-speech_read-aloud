@@ -8,6 +8,8 @@
 	<body>
 		<h1>音声合成::音声読み上げ</h1>
 		<textarea id="sample_textbox" onClick="this.select()" onBlur="this.value=this.value.trim()"></textarea>
+		<button onclick="readAloud(document.querySelector('#sample_textbox').value)">Synthesis</button>
+		<button onclick="window.speechSynthesis.cancel();">Synthesis STOP</button>
 		<script>
 			document.querySelector('#sample_textbox').value = 'Speech API を使おう。';
 		</script>
@@ -18,8 +20,6 @@
 			button {
 				width: 80px; height: 30px; display: block;
 			}
-		</style><br>
-		<button onclick="readAloud(document.querySelector('#sample_textbox').value)">Synthesis</button>
-		<button onclick="window.speechSynthesis.cancel();">Synthesis STOP</button>
+		</style>
 	</body>
 </html>
