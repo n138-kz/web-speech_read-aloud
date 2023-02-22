@@ -8,6 +8,8 @@ refs:
 - [Webページでブラウザの音声合成機能を使おう | Qiita](https://qiita.com/hmmrjn/items/be29c62ba4e4a02d305c)
 - [readAloud-Core.js](https://github.com/n138-kz/mondai-syu-kanri-system/blob/main/apps/html/scripts/readAloud-Core.js)
 
+---
+
 ```JavaScript
 function readAloud(text) {
   /*
