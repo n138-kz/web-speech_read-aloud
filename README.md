@@ -61,4 +61,6 @@ function readAloud(text) {
     console.error('Speech synthesis has not supported');
     window.alert('Speech synthesis has not supported');
   }
-}```
+}
+
+```
