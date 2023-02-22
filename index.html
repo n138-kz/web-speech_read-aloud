@@ -15,9 +15,11 @@
 			#sample_textbox {
 				width: 500px; height: 100px; font-size: 20px;
 			}
-		</style>
-		<br>
-		<button onclick="readAloud(document.querySelector('#sample_textbox').value)" style="width: 80px; height: 30px;">Synthesis</button>
-		<button onclick="window.speechSynthesis.cancel();" style="width: 80px; height: 30px;">Synthesis STOP</button>
+			button {
+				width: 80px; height: 30px; display: block;
+			}
+		</style><br>
+		<button onclick="readAloud(document.querySelector('#sample_textbox').value)">Synthesis</button>
+		<button onclick="window.speechSynthesis.cancel();">Synthesis STOP</button>
 	</body>
 </html>
