@@ -9,21 +9,54 @@ refs:
 - [readAloud-Core.js](https://github.com/n138-kz/mondai-syu-kanri-system/blob/main/apps/html/scripts/readAloud-Core.js)
 
 ```JavaScript
-<!-- スクリプト部分 -->
-function speak(){
-  var speak   = new SpeechSynthesisUtterance();
-  speak.text  = document.querySelector('.text').value;
-  speak.rate  = 1; // 読み上げ速度 0.1-10 初期値:1 (倍速なら2, 半分の倍速なら0.5, )
-  speak.pitch = 0;　// 声の高さ 0-2 初期値:1(0で女性の声) 
-  speak.lang  = 'ja-JP'; //(日本語:ja-JP, アメリカ英語:en-US, イギリス英語:en-GB, 中国語:zh-CN, 韓国語:ko-KR)
+function readAloud(text) {
+  /*
+  *
+  * Quotes: https://web-creates.com/code/js-web-speech-api/
+  * Description: ブラウザにWeb Speech API Speech Synthesis機能があるか判定し、使用可能であれば読上げを行う
+  * How to use: 本スクリプトファイルをロードし、`readAloud("喋らせたい内容")` のように実行する。
+  *
+  */
+  if ('speechSynthesis' in window) {
 
-  sleep(2000);
-  speechSynthesis.speak(speak);
-}
+    // 発言を設定
+    const uttr = new SpeechSynthesisUtterance();
 
-function sleep(time){
-  var startMsec = new Date();
-  while ((new Date() - startMsec) < time);
-  return;
-};
-```
+    // テキストを設定 (必須)
+    uttr.text = text;
+
+    // ユーザの設定を取得
+    let userConf = sessionStorage.getItem( (btoa(location.href)).slice(0, 16) + '.readAloud' );
+    userConf = (userConf === undefined || userConf === null) ? {'lang':'ja-JP','rate':1,'pitch':1,'volume':1} : JSON.parse(userConf);
+
+    // 言語を設定
+    uttr.lang   = "ja-JP";
+    uttr.lang   = (userConf.lang   === undefined || userConf.lang   === null) ? uttr.lang   : userConf.lang;
+
+    // 速度を設定 (初期値:1 / 範囲 0.1-10 )
+    uttr.rate   = 1;
+    uttr.rate   = (userConf.rate   === undefined || userConf.rate   === null) ? uttr.rate   : userConf.rate;
+
+    // 高さを設定 (初期値:1 / 範囲 0-2 )
+    uttr.pitch  = 1;
+    uttr.pitch  = (userConf.pitch  === undefined || userConf.pitch  === null) ? uttr.pitch  : userConf.pitch;
+
+    // 音量を設定 (初期値:1 / 範囲 0-1 )
+    uttr.volume = 1;
+    uttr.volume = (userConf.volume === undefined || userConf.volume === null) ? uttr.volume : userConf.volume;
+
+    // 実際に使用した設定を保存
+    userConf = {'lang':uttr.lang,'rate':uttr.rate,'pitch':uttr.pitch,'volume':uttr.volume};
+    sessionStorage.setItem( (btoa(location.href)).slice(0, 16) + '.readAloud', JSON.stringify(userConf) );
+    console.debug(userConf);
+
+    // 再生中の音声を停止
+    window.speechSynthesis.cancel();
+
+    // 発言を再生
+    window.speechSynthesis.speak(uttr);
+  } else {
+    console.error('Speech synthesis has not supported');
+    window.alert('Speech synthesis has not supported');
+  }
+}```
