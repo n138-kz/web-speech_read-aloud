@@ -9,11 +9,11 @@
 		<textarea id="sample_textbox"></textarea>
 		<script>
 			document.getElementById('sample_textbox').value = 'Speech API を使おう。';
-			addEventListener('blur',function(){
-				this.value=this.value.trim();
+			addEventListener('blur',function(e){
+				e.value=e.value.trim();
 			});
-			addEventListener('click',function(){
-				this.select();
+			addEventListener('click',function(e){
+				e.select();
 			});
 		</script>
 		<style>
