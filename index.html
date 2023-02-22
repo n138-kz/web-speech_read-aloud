@@ -6,15 +6,9 @@
 	</head>
 	<body>
 		<h1>音声合成</h1>
-		<textarea id="sample_textbox"></textarea>
+		<textarea id="sample_textbox" onClick="this.select()" onBlur="this.value=this.value.trim()"></textarea>
 		<script>
 			document.getElementById('sample_textbox').value = 'Speech API を使おう。';
-			addEventListener('blur',function(e){
-				e.value=e.value.trim();
-			});
-			addEventListener('click',function(e){
-				e.select();
-			});
 		</script>
 		<style>
 			#sample_textbox {
