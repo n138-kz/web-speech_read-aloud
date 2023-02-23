@@ -62,7 +62,7 @@
 					<input
 						type="button"
 						value="設定初期化"
-						onclick="window.speechSynthesis.cancel();if(window.confirm('Profile clear?')){sessionStorage.setItem( (btoa(location.href)).slice(0, 16) + '.readAloud', JSON.stringify({}) )}"
+						onclick="readAloud_ProfileClear()"
 					>
 				</td>
 			</tr>
@@ -76,6 +76,20 @@
 			document.querySelector('#sample_textbox').value += '음성 합성:: 음성 독서\n';
 		</script>
 		<script>
+			function readAloud_ProfileClear() {
+				readAloud_stop();
+
+				// デフォルトの設定
+				let dfltConf = {'lang':'ja-JP','rate':1,'pitch':1,'volume':1};
+
+				if(window.confirm('Profile clear?')){
+					sessionStorage.setItem( (btoa(location.href)).slice(0, 16) + '.readAloud', JSON.stringify(dfltConf) )
+
+					document.querySelector('#readAloud_value_lang').value  = document.querySelector('#readAloud_lang').value  = dfltConf.lang;
+					document.querySelector('#readAloud_value_rate').value  = document.querySelector('#readAloud_rate').value  = Math.round(dfltConf.rate*100)/100;
+					document.querySelector('#readAloud_value_pitch').value = document.querySelector('#readAloud_pitch').value = Math.round(dfltConf.pitch*100)/100;
+				}
+			}
 			function getConfigAll(){
 				// デフォルトの設定
 				let dfltConf = {'lang':'ja-JP','rate':1,'pitch':1,'volume':1};
