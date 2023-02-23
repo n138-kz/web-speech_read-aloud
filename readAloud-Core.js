@@ -11,13 +11,13 @@ function readAloud(text) {
     // 発言を設定
     const uttr = new SpeechSynthesisUtterance();
 
-    uttr.removeEventListener('start');
-    uttr.removeEventListener('pause');
-    uttr.removeEventListener('resume');
-    uttr.removeEventListener('end');
-    uttr.removeEventListener('mark');
-    uttr.removeEventListener('boundary');
-    uttr.removeEventListener('error');
+    uttr.removeEventListener('start',    (event) => {});
+    uttr.removeEventListener('pause',    (event) => {});
+    uttr.removeEventListener('resume',   (event) => {});
+    uttr.removeEventListener('end',      (event) => {});
+    uttr.removeEventListener('mark',     (event) => {});
+    uttr.removeEventListener('boundary', (event) => {});
+    uttr.removeEventListener('error',    (event) => {});
     uttr.addEventListener('start', (event) => {
       console.log(event);
     });
