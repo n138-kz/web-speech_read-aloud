@@ -22,20 +22,16 @@ function readAloud(text) {
     userConf = (userConf === undefined || userConf === null) ? dfltConf : JSON.parse(userConf);
 
     // 言語を設定
-    uttr.lang   = "ja-JP";
-    uttr.lang   = (userConf.lang   === undefined || userConf.lang   === null) ? uttr.lang   : userConf.lang;
+    uttr.lang   = (userConf.lang   === undefined || userConf.lang   === null) ? dfltConf.lang   : userConf.lang;
 
     // 速度を設定 (初期値:1 / 範囲 0.1-10 )
-    uttr.rate   = 1;
-    uttr.rate   = (userConf.rate   === undefined || userConf.rate   === null) ? uttr.rate   : userConf.rate;
+    uttr.rate   = (userConf.rate   === undefined || userConf.rate   === null) ? dfltConf.rate   : userConf.rate;
 
     // 高さを設定 (初期値:1 / 範囲 0-2 )
-    uttr.pitch  = 1;
-    uttr.pitch  = (userConf.pitch  === undefined || userConf.pitch  === null) ? uttr.pitch  : userConf.pitch;
+    uttr.pitch  = (userConf.pitch  === undefined || userConf.pitch  === null) ? dfltConf.pitch  : userConf.pitch;
 
     // 音量を設定 (初期値:1 / 範囲 0-1 )
-    uttr.volume = 1;
-    uttr.volume = (userConf.volume === undefined || userConf.volume === null) ? uttr.volume : userConf.volume;
+    uttr.volume = (userConf.volume === undefined || userConf.volume === null) ? dfltConf.volume : userConf.volume;
 
     // 実際に使用した設定を保存
     userConf = {'lang':uttr.lang,'rate':uttr.rate,'pitch':uttr.pitch,'volume':uttr.volume};
