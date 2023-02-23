@@ -99,6 +99,11 @@
 				let userConf = sessionStorage.getItem( (btoa(location.href)).slice(0, 16) + '.readAloud' );
 				userConf = (userConf === undefined || userConf === null) ? dfltConf : JSON.parse(userConf);
 
+				// 設定する値が数字の場合は少数第二位までとする
+				if(!isNaN(value)){
+					value = Math.round(value*100)/100;
+				}
+
 				// 設定
 				userConf[item]  = value;
 
