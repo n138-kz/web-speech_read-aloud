@@ -113,10 +113,10 @@
 			}
 			userConf = getConfigAll();
 			addOption(document.querySelector('#readAloud_lang'), {text:'日本語', value:'ja-JP'});
-			addOption(document.querySelector('#readAloud_lang'), {text:'米英語', value:'en-US'});
-			addOption(document.querySelector('#readAloud_lang'), {text:'英英語', value:'en-GB'});
-			addOption(document.querySelector('#readAloud_lang'), {text:'中国語', value:'zh-CN'});
-			addOption(document.querySelector('#readAloud_lang'), {text:'韓国語', value:'ko-KR'});
+			addOption(document.querySelector('#readAloud_lang'), {text:'US-English', value:'en-US'});
+			addOption(document.querySelector('#readAloud_lang'), {text:'UK-English', value:'en-GB'});
+			addOption(document.querySelector('#readAloud_lang'), {text:'简体中文', value:'zh-CN'});
+			addOption(document.querySelector('#readAloud_lang'), {text:'한국어', value:'ko-KR'});
 			document.querySelector('#readAloud_value_lang').value  = document.querySelector('#readAloud_lang').value  = userConf.lang;
 			document.querySelector('#readAloud_value_rate').value  = document.querySelector('#readAloud_rate').value  = Math.round(userConf.rate*100)/100;
 			document.querySelector('#readAloud_value_pitch').value = document.querySelector('#readAloud_pitch').value = Math.round(userConf.pitch*100)/100;
