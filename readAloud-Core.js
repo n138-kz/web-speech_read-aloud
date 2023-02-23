@@ -52,3 +52,9 @@ function readAloud(text) {
     window.alert('Speech synthesis has not supported');
   }
 }
+function readAloud_play(text) {
+  readAloud(text);
+}
+function readAloud_stop{
+  window.speechSynthesis.cancel();
+}
