@@ -12,8 +12,8 @@
 			ondblclick="this.select()"
 			onBlur="this.value=this.value.trim();this.value=this.value.replace(/(\r\n){2,}|\r{2,}|\n{2,}/g, '\n');this.value=this.value.replace(/、 /g, '、').replace(/。 /g, '。');"
 		></textarea>
-		<button onclick="window.speechSynthesis.cancel();">Synthesis STOP</button>
 		<button onclick="readAloud_play(document.querySelector('#sample_textbox').value)">Synthesis</button>
+		<button onclick="readAloud_stop()">Synthesis STOP</button>
 		<table>
 			<tr>
 				<th>言語</th>
@@ -101,7 +101,7 @@
 			}
 			function setConfig(item, value) {
 				console.debug([item, value]);
-				window.speechSynthesis.cancel();
+				readAloud_stop();
 
 				// デフォルトの設定
 				let dfltConf = {'lang':'ja-JP','rate':1,'pitch':1,'volume':1};
