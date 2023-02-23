@@ -60,6 +60,16 @@
 					<output id="readAloud_value_pitch"></output>
 				</td>
 			</tr>
+			<tr>
+				<th>設定</th>
+				<td colspan="2">
+					<input
+						type="button"
+						value="設定初期化"
+						onclick="window.speechSynthesis.cancel();if(window.confirm('Profile clear?')){sessionStorage.setItem( (btoa(location.href)).slice(0, 16) + '.readAloud', JSON.stringify({}) )}"
+					>
+				</td>
+			</tr>
 		</table>
 
 		<script>
