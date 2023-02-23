@@ -55,14 +55,14 @@ function readAloud(text) {
       console.log(event);
       let elm_block = document.createElement("span");
       elm_block.innerText = '';
-      elm_block.innerText += '';
+      elm_block.innerText += (event.target.text).substring(event.charIndex,(event.charIndex+event.charLength));
       document.querySelector('body').appendChild(elm_block);
     });
     uttr.addEventListener('error', (event) => {
       console.error(event);
       let elm_block = document.createElement("div");
       elm_block.innerText = '';
-      elm_block.innerText += '';
+      elm_block.innerText += event.error;
       document.querySelector('body').appendChild(elm_block);
     });
 
