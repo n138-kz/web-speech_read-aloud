@@ -91,6 +91,7 @@
 			}
 			function setConfig(item, value) {
 				console.debug([item, value]);
+				window.speechSynthesis.cancel();
 
 				// デフォルトの設定
 				let dfltConf = {'lang':'ja-JP','rate':1,'pitch':1,'volume':1};
