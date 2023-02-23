@@ -11,6 +11,35 @@ function readAloud(text) {
     // 発言を設定
     const uttr = new SpeechSynthesisUtterance();
 
+    uttr.removeEventListener('start');
+    uttr.removeEventListener('pause');
+    uttr.removeEventListener('resume');
+    uttr.removeEventListener('end');
+    uttr.removeEventListener('mark');
+    uttr.removeEventListener('boundary');
+    uttr.removeEventListener('error');
+    uttr.addEventListener('start', (event) => {
+      console.log(event);
+    });
+    uttr.addEventListener('pause', (event) => {
+      console.log(event);
+    });
+    uttr.addEventListener('resume', (event) => {
+      console.log(event);
+    });
+    uttr.addEventListener('end', (event) => {
+      console.log(event);
+    });
+    uttr.addEventListener('mark', (event) => {
+      console.log(event);
+    });
+    uttr.addEventListener('boundary', (event) => {
+      console.log(event);
+    });
+    uttr.addEventListener('error', (event) => {
+      console.error(event);
+    });
+
     // テキストを設定 (必須)
     uttr.text = text;
 
