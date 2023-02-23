@@ -51,6 +51,6 @@ function readAloud(text) {
 function readAloud_play(text) {
   readAloud(text);
 }
-function readAloud_stop{
+function readAloud_stop() {
   window.speechSynthesis.cancel();
 }
