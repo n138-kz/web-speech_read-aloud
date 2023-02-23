@@ -78,6 +78,15 @@
 			document.querySelector('#sample_textbox').value += 'Speech Synthesis::Text to Speech\n';
 			document.querySelector('#sample_textbox').value += '语音合成::文本到语音\n';
 			document.querySelector('#sample_textbox').value += '음성 합성:: 음성 독서\n';
+
+			let elm_p = document.createElement("p");
+			let elm_a = document.createElement("a");
+			elm_a.href='https://developer.mozilla.org/ja/docs/Web/API/SpeechSynthesisUtterance';
+			elm_a.title='SpeechSynthesisUtterance - Web API | MDN';
+			elm_a.target='_blank';
+			elm_a.innerText=elm_a.href;
+			elm_p.appendChild(elm_a);
+			document.querySelector('table').after(elm_p);
 		</script>
 		<script>
 			function readAloud_ProfileClear() {
