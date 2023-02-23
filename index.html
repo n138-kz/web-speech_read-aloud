@@ -14,12 +14,112 @@
 		></textarea>
 		<button onclick="readAloud(document.querySelector('#sample_textbox').value)">Synthesis</button>
 		<button onclick="window.speechSynthesis.cancel();">Synthesis STOP</button>
+		<table>
+			<tr>
+				<th>言語</th>
+				<td>
+					<select
+						onchange="document.querySelector('#readAloud_value_lang').value = this.selectedOptions[0].value;setConfig('lang',this.selectedOptions[0].value)"
+						id="readAloud_lang"></select>
+				</td>
+				<td>
+					<output id="readAloud_value_lang"></output>
+				</td>
+			</tr>
+			<tr>
+				<th>速度</th>
+				<td>
+					<input
+						type="range"
+						step="0.1"
+						min="0.1"
+						max="10"
+						onchange="document.querySelector('#readAloud_value_rate').value = this.value;setConfig('rate',this.value)"
+						id="readAloud_rate">
+				</td>
+				<td>
+					<output id="readAloud_value_rate"></output>
+				</td>
+			</tr>
+			<tr>
+				<th>高さ</th>
+				<td>
+					<input
+						type="range"
+						step="0.1"
+						min="0"
+						max="2"
+						onchange="document.querySelector('#readAloud_value_pitch').value = this.value;setConfig('pitch',this.value)"
+						id="readAloud_pitch">
+				</td>
+				<td>
+					<output id="readAloud_value_pitch"></output>
+				</td>
+			</tr>
+		</table>
+
 		<script>
 			document.querySelector('#sample_textbox').value = '';
 			document.querySelector('#sample_textbox').value += '音声合成::音声読み上げ\n';
 			document.querySelector('#sample_textbox').value += 'Speech Synthesis::Text to Speech\n';
 			document.querySelector('#sample_textbox').value += '语音合成::文本到语音\n';
 			document.querySelector('#sample_textbox').value += '음성 합성:: 음성 독서\n';
+		</script>
+		<script>
+			function getConfigAll(){
+				// デフォルトの設定
+				let dfltConf = {'lang':'ja-JP','rate':1,'pitch':1,'volume':1};
+
+				// ユーザの設定を取得
+				let userConf = sessionStorage.getItem( (btoa(location.href)).slice(0, 16) + '.readAloud' );
+				userConf = (userConf === undefined || userConf === null) ? dfltConf : JSON.parse(userConf);
+
+				// 言語を設定
+				userConf.lang   = (userConf.lang   === undefined || userConf.lang   === null) ? dfltConf.lang   : userConf.lang;
+
+				// 速度を設定 (初期値:1 / 範囲 0.1-10 )
+				userConf.rate   = (userConf.rate   === undefined || userConf.rate   === null) ? dfltConf.rate   : Math.round(userConf.rate*100)/100;
+
+				// 高さを設定 (初期値:1 / 範囲 0-2 )
+				userConf.pitch  = (userConf.pitch  === undefined || userConf.pitch  === null) ? dfltConf.pitch  : Math.round(userConf.pitch*100)/100;
+
+				// 音量を設定 (初期値:1 / 範囲 0-1 )
+				userConf.volume = (userConf.volume === undefined || userConf.volume === null) ? dfltConf.volume : Math.round(userConf.volume*100)/100;
+
+				sessionStorage.setItem( (btoa(location.href)).slice(0, 16) + '.readAloud', JSON.stringify(userConf) );
+				return userConf;
+			}
+			function setConfig(item, value) {
+				console.debug([item, value]);
+
+				// デフォルトの設定
+				let dfltConf = {'lang':'ja-JP','rate':1,'pitch':1,'volume':1};
+
+				// ユーザの設定を取得
+				let userConf = sessionStorage.getItem( (btoa(location.href)).slice(0, 16) + '.readAloud' );
+				userConf = (userConf === undefined || userConf === null) ? dfltConf : JSON.parse(userConf);
+
+				// 設定
+				userConf[item]  = value;
+
+				// 設定を保存
+				sessionStorage.setItem( (btoa(location.href)).slice(0, 16) + '.readAloud', JSON.stringify(userConf) );
+			}
+			function addOption(parent, child) {
+				let option = document.createElement("option");
+				option.text = child.text;
+				option.value = child.value;
+				parent.appendChild(option);
+			}
+			userConf = getConfigAll();
+			addOption(document.querySelector('#readAloud_lang'), {text:'日本語', value:'ja-JP'});
+			addOption(document.querySelector('#readAloud_lang'), {text:'米英語', value:'en-US'});
+			addOption(document.querySelector('#readAloud_lang'), {text:'英英語', value:'en-GB'});
+			addOption(document.querySelector('#readAloud_lang'), {text:'中国語', value:'zh-CN'});
+			addOption(document.querySelector('#readAloud_lang'), {text:'韓国語', value:'ko-KR'});
+			document.querySelector('#readAloud_value_lang').value  = document.querySelector('#readAloud_lang').value  = userConf.lang;
+			document.querySelector('#readAloud_value_rate').value  = document.querySelector('#readAloud_rate').value  = Math.round(userConf.rate*100)/100;
+			document.querySelector('#readAloud_value_pitch').value = document.querySelector('#readAloud_pitch').value = Math.round(userConf.pitch*100)/100;
 		</script>
 		<style>
 			#sample_textbox {
