@@ -14,9 +14,12 @@ function readAloud(text) {
     // テキストを設定 (必須)
     uttr.text = text;
 
+    // デフォルトの設定
+    let dfltConf = {'lang':'ja-JP','rate':1,'pitch':1,'volume':1};
+
     // ユーザの設定を取得
     let userConf = sessionStorage.getItem( (btoa(location.href)).slice(0, 16) + '.readAloud' );
-    userConf = (userConf === undefined || userConf === null) ? {'lang':'ja-JP','rate':1,'pitch':1,'volume':1} : JSON.parse(userConf);
+    userConf = (userConf === undefined || userConf === null) ? dfltConf : JSON.parse(userConf);
 
     // 言語を設定
     uttr.lang   = "ja-JP";
