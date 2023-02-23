@@ -12,8 +12,8 @@
 			ondblclick="this.select()"
 			onBlur="this.value=this.value.trim();this.value=this.value.replace(/(\r\n){2,}|\r{2,}|\n{2,}/g, '\n');this.value=this.value.replace(/、 /g, '、').replace(/。 /g, '。');"
 		></textarea>
-		<button onclick="readAloud(document.querySelector('#sample_textbox').value)">Synthesis</button>
 		<button onclick="window.speechSynthesis.cancel();">Synthesis STOP</button>
+		<button onclick="readAloud_play(document.querySelector('#sample_textbox').value)">Synthesis</button>
 		<table>
 			<tr>
 				<th>言語</th>
