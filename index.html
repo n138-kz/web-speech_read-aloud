@@ -7,7 +7,7 @@
 	</head>
 	<body>
 		<h1>音声合成::音声読み上げ</h1>
-		<textarea id="sample_textbox" onClick="this.select()" onBlur="this.value=this.value.trim()"></textarea>
+		<textarea id="sample_textbox" ondblclick="this.select()" onBlur="this.value=this.value.trim()"></textarea>
 		<button onclick="readAloud(document.querySelector('#sample_textbox').value)">Synthesis</button>
 		<button onclick="window.speechSynthesis.cancel();">Synthesis STOP</button>
 		<script>
