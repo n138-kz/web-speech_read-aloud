@@ -15,7 +15,11 @@
 		<button onclick="readAloud(document.querySelector('#sample_textbox').value)">Synthesis</button>
 		<button onclick="window.speechSynthesis.cancel();">Synthesis STOP</button>
 		<script>
-			document.querySelector('#sample_textbox').value = '音声合成::音声読み上げ\n';
+			document.querySelector('#sample_textbox').value = '';
+			document.querySelector('#sample_textbox').value += '音声合成::音声読み上げ\n';
+			document.querySelector('#sample_textbox').value += 'Speech Synthesis::Text to Speech\n';
+			document.querySelector('#sample_textbox').value += '语音合成::文本到语音\n';
+			document.querySelector('#sample_textbox').value += '음성 합성:: 음성 독서\n';
 		</script>
 		<style>
 			#sample_textbox {
