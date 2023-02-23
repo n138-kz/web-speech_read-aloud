@@ -51,6 +51,8 @@
 						step="0.1"
 						min="0"
 						max="2"
+						onmousemove="document.querySelector('#readAloud_value_pitch').value = this.value;setConfig('pitch',this.value)"
+						ontouchmove="document.querySelector('#readAloud_value_pitch').value = this.value;setConfig('pitch',this.value)"
 						onchange="document.querySelector('#readAloud_value_pitch').value = this.value;setConfig('pitch',this.value)"
 						id="readAloud_pitch">
 				</td>
