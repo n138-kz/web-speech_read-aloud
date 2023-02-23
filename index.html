@@ -7,7 +7,11 @@
 	</head>
 	<body>
 		<h1>音声合成::音声読み上げ</h1>
-		<textarea id="sample_textbox" ondblclick="this.select()" onBlur="this.value=this.value.trim();this.value=this.value.replace(/(\r\n){3,}|\r{3,}|\n{3,}/, '\n\n');"></textarea>
+		<textarea
+			id="sample_textbox"
+			ondblclick="this.select()"
+			onBlur="this.value=this.value.trim();this.value=this.value.replace(/(\r\n){3,}|\r{3,}|\n{3,}/, '\n\n');this.value=this.value.replace(/、 /g, '、').replace(/。 /g, '。');"
+		></textarea>
 		<button onclick="readAloud(document.querySelector('#sample_textbox').value)">Synthesis</button>
 		<button onclick="window.speechSynthesis.cancel();">Synthesis STOP</button>
 		<script>
