@@ -26,31 +26,43 @@ function readAloud(text) {
     uttr.addEventListener('pause', (event) => {
       console.log(event);
       let elm_block = document.createElement("div");
+      elm_block.innerText = '';
+      elm_block.innerText += '';
       document.querySelector('body').appendChild(elm_block);
     });
     uttr.addEventListener('resume', (event) => {
       console.log(event);
       let elm_block = document.createElement("div");
+      elm_block.innerText = '';
+      elm_block.innerText += '';
       document.querySelector('body').appendChild(elm_block);
     });
     uttr.addEventListener('end', (event) => {
       console.log(event);
       let elm_block = document.createElement("div");
+      elm_block.innerText = '';
+      elm_block.innerText += '';
       document.querySelector('body').appendChild(elm_block);
     });
     uttr.addEventListener('mark', (event) => {
       console.log(event);
       let elm_block = document.createElement("div");
+      elm_block.innerText = '';
+      elm_block.innerText += '';
       document.querySelector('body').appendChild(elm_block);
     });
     uttr.addEventListener('boundary', (event) => {
       console.log(event);
       let elm_block = document.createElement("span");
+      elm_block.innerText = '';
+      elm_block.innerText += '';
       document.querySelector('body').appendChild(elm_block);
     });
     uttr.addEventListener('error', (event) => {
       console.error(event);
       let elm_block = document.createElement("div");
+      elm_block.innerText = '';
+      elm_block.innerText += '';
       document.querySelector('body').appendChild(elm_block);
     });
 
