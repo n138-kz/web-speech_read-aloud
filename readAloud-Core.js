@@ -20,24 +20,38 @@ function readAloud(text) {
     uttr.removeEventListener('error',    () => {});
     uttr.addEventListener('start', (event) => {
       console.log(event);
+      let elm_block = document.createElement("div");
+      document.querySelector('body').appendChild(elm_block);
     });
     uttr.addEventListener('pause', (event) => {
       console.log(event);
+      let elm_block = document.createElement("div");
+      document.querySelector('body').appendChild(elm_block);
     });
     uttr.addEventListener('resume', (event) => {
       console.log(event);
+      let elm_block = document.createElement("div");
+      document.querySelector('body').appendChild(elm_block);
     });
     uttr.addEventListener('end', (event) => {
       console.log(event);
+      let elm_block = document.createElement("div");
+      document.querySelector('body').appendChild(elm_block);
     });
     uttr.addEventListener('mark', (event) => {
       console.log(event);
+      let elm_block = document.createElement("div");
+      document.querySelector('body').appendChild(elm_block);
     });
     uttr.addEventListener('boundary', (event) => {
       console.log(event);
+      let elm_block = document.createElement("span");
+      document.querySelector('body').appendChild(elm_block);
     });
     uttr.addEventListener('error', (event) => {
       console.error(event);
+      let elm_block = document.createElement("div");
+      document.querySelector('body').appendChild(elm_block);
     });
 
     // テキストを設定 (必須)
