@@ -27,7 +27,8 @@
 				var elm = document.createElement('div');
 				elm.classList.add('transcription');
 				elm.dataset.issueAtTime = (new Date()).getTime();
-				content.innerHTML += '<div class="transcription">'+ autotext +'</div>';
+				elm.innerText = autotext;
+				content.appendChild(elm);
 			}
 		}
 	
