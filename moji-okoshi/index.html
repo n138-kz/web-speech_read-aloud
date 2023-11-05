@@ -44,7 +44,7 @@
 				 * JavaScriptでテキストファイルを生成してダウンロード
 				 * https://g.co/bard/share/2c49732ef0fb
 				 */
-				var textblob = new Blob([content.innerText], {type: 'text/plain'});
+				var textblob = new Blob([(new Uint8Array([0xEF, 0xBB, 0xBF])), content.innerText], {type: 'text/plain'});
 
 				var textbloblink = document.createElement("a");
 				textbloblink.href = window.URL.createObjectURL(textblob);
