@@ -8,6 +8,7 @@
 <body>
 	<h2>音声認識サンプル</h2>
 	<button id="btn_start">start</button>
+	<button id="btn_stop">stop</button>
 	<div id="content"></div>
 	<script>
 		const speech = new webkitSpeechRecognition();
@@ -18,6 +19,9 @@
 	
 		btn_start.addEventListener('click' , function() {
 			speech.start();
+		});
+		btn_stop.addEventListener('click' , function() {
+			speech.stop();
 		});
 	
 		speech.onresult = function(e) {
