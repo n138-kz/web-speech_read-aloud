@@ -51,7 +51,9 @@
 				textbloblink.download = 'transcription' + '_' + location.host + '_' + ( (new Date()).getTime() / 1000 ) + '.txt';
 
 				document.body.appendChild(textbloblink);
+				console.log(textbloblink.href);
 
+				textbloblink.click();
 			} else {
 				content.contentEditable = !0;
 			}
