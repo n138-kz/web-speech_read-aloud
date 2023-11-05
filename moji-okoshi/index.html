@@ -23,7 +23,10 @@
 		speech.onresult = function(e) {
 			speech.stop();
 			if(e.results[0].isFinal){
-				var autotext =  e.results[0][0].transcript
+				var autotext = e.results[0][0].transcript;
+				var elm = document.createElement('div');
+				elm.classList.add('transcription');
+				elm.dataset.issueAtTime = (new Date()).getTime();
 				content.innerHTML += '<div class="transcription">'+ autotext +'</div>';
 			}
 		}
