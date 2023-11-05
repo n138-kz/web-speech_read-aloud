@@ -4,6 +4,17 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
+	<style>
+		:root {
+			background-color: #f0ffffff;
+		}
+		#content {
+			background-color: #55dd00ff;
+		}
+		#content:read-write {
+			background-color: #ffbb00ff;
+		}
+	</style>
 </head>
 <body>
 	<h2>音声認識サンプル</h2>
@@ -21,7 +32,11 @@
 		});
 
 		content.addEventListener('dblclick' , function(e) {
-			console.log(e);
+			if (content.contentEditable == 'true') {
+				content.contentEditable = !content.contentEditable;
+			} else {
+				content.contentEditable = !0;
+			}
 		});
 	
 		speech.onresult = function(e) {
