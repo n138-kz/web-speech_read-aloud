@@ -39,6 +39,23 @@
 		content.addEventListener('dblclick' , function(e) {
 			if (content.contentEditable == 'true') {
 				content.contentEditable = !content.contentEditable;
+
+				/*
+				 * JavaScriptでテキストファイルを生成してダウンロード
+				 * https://g.co/bard/share/2c49732ef0fb
+				 */
+				var textblob = new Blob([content.innerText], {type: 'text/plain'});
+
+				var textbloblink = document.createElement("a");
+				textbloblink.href = window.URL.createObjectURL(textblob);
+				textbloblink.download = 'transcription' + '_' + location.host + '_' + ( (new Date()).getTime() / 1000 ) + '.txt';
+
+				document.body.appendChild(textbloblink);
+
+				window.onload = () => {
+					textbloblink.click();
+				};
+
 			} else {
 				content.contentEditable = !0;
 				content.select();
