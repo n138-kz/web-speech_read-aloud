@@ -7,16 +7,16 @@
 </head>
 <body>
 	<h2>音声認識サンプル</h2>
-	<button id="btn">start</button>
+	<button id="btn_start">start</button>
 	<div id="content"></div>
 	<script>
 		const speech = new webkitSpeechRecognition();
 		speech.lang = 'ja-JP';
 	
-		const btn = document.getElementById('btn');
+		const btn_start = document.getElementById('btn_start');
 		const content = document.getElementById('content');
 	
-		btn.addEventListener('click' , function() {
+		btn_start.addEventListener('click' , function() {
 			speech.start();
 		});
 	
