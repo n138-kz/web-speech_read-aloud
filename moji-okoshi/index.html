@@ -54,6 +54,7 @@
 				elm.dataset.issueAtTime = ( (new Date()).getTime() / 1000 );
 				elm.innerText = autotext;
 				content.appendChild(elm);
+				content.scrollTo(0, content.scrollHeight);
 			}
 		}
 	
