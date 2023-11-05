@@ -26,11 +26,11 @@
 				var autotext =  e.results[0][0].transcript
 				content.innerHTML += '<div class="transcription">'+ autotext +'</div>';
 			}
-		 }
+		}
 	
-		 speech.onend = () => { 
+		speech.onend = () => { 
 			speech.start() 
-		 };
+		};
 	</script>
 </body>
 </html>
