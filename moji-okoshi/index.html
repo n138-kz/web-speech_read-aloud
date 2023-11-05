@@ -48,7 +48,7 @@
 
 				var textbloblink = document.createElement("a");
 				textbloblink.href = window.URL.createObjectURL(textblob);
-				textbloblink.download = 'transcription' + '_' + location.host + '_' + ( (new Date()).getTime() / 1000 ) + '.txt';
+				textbloblink.download = 'transcription' + '_' + ( (new Date()).getTime() / 1000 ) + '.txt';
 
 				document.body.appendChild(textbloblink);
 				console.log(textbloblink.href);
