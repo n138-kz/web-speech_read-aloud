@@ -19,6 +19,10 @@
 		btn_start.addEventListener('click' , function() {
 			speech.start();
 		});
+
+		content.addEventListener('dblclick' , function(e) {
+			console.log(e);
+		});
 	
 		speech.onresult = function(e) {
 			speech.stop();
