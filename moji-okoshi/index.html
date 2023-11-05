@@ -26,7 +26,7 @@
 				var autotext = e.results[0][0].transcript;
 				var elm = document.createElement('div');
 				elm.classList.add('transcription');
-				elm.dataset.issueAtTime = (new Date()).getTime();
+				elm.dataset.issueAtTime = ( (new Date()).getTime() / 1000 );
 				elm.innerText = autotext;
 				content.appendChild(elm);
 			}
