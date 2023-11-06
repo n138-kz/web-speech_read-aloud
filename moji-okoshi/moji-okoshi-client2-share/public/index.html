@@ -141,7 +141,7 @@
 	<script>
 		document.querySelector('#issueShareCode').addEventListener('click', ()=>{
 			console.log('#issueShareCode clicked');
-			const xhr = new XMLHttpRequest();
+			let xhr = new XMLHttpRequest();
 			xhr.onreadystatechange = ()=>{
 				if ( xhr.readyState === 4 && xhr.status >= 200 && xhr.status < 300 ) {
 					console.debug( xhr, '2xx', xhr.responseText, xhr.readyState, xhr.status, xhr.statusText );
@@ -167,7 +167,6 @@
 				'timestamp='+(Math.floor((new Date()).getTime()/1000))
 				+ '&token='+''
 			);
-			xhr.abort();
 		});
 		document.querySelector('#running_mode').addEventListener('change', ()=>{
 			Array.prototype.forEach.call(document.querySelectorAll('.mode_w'), (e)=>{ e.style.display='none'; });
