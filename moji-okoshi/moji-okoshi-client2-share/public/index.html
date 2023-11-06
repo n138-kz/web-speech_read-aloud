@@ -39,19 +39,23 @@
 	<div class="mode_w">
 		<button>共有/認証コード 発行</button>
 	</div>
+	<div class="mode_w">
 		<table>
 			<tr>
 				<th>共有コード</th>
 				<td>
-					<input type="text" maxlength="8">
+					<input id="mode_w_form_sharecode" type="text" maxlength="8" disabled>
 				</td>
 			</tr>
 			<tr>
 				<th>認証コード</th>
 				<td>
-					<input type="text" maxlength="6">
+					<input id="mode_w_form_authncode" type="text" maxlength="6" disabled>
 				</td>
 			</tr>
+		</table>
+		<button>文字起こし 開始</button>
+	</div>
 	<div class="mode_r">
 		<table>
 			<tr>
