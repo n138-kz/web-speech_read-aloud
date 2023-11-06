@@ -44,11 +44,14 @@ function issue_num_rand($len=0) {
 	return $result;
 }
 
-header('content-type: Application/json');
+if ( mb_strtolower($_SERVER['REQUEST_METHOD']) == 'post' ) {
+	header('content-type: Application/json');
 
-$curl_res['timestamp'] = microtime(true);
-$curl_res['sharecode'] = issue_num_rand(6);
-$curl_res['authncode'] = hash('crc32', $curl_res['timestamp']);
+	$curl_res['timestamp'] = microtime(true);
+	$curl_res['sharecode'] = issue_num_rand(6);
+	$curl_res['authncode'] = hash('crc32', $curl_res['timestamp']);
+	
 
-echo json_encode($curl_res);
-exit();
+	echo json_encode($curl_res);
+	exit();
+}
