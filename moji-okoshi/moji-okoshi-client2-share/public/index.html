@@ -31,7 +31,27 @@
 		</select>
 	</div>
 	<div class="mode_w"></div>
-	<div class="mode_r"></div>
+	<div class="mode_r">
+		<table>
+			<tr>
+				<th>共有コード</th>
+				<td>
+					<input type="text" maxlength="8">
+				</td>
+			</tr>
+			<tr>
+				<th>認証コード</th>
+				<td>
+					<input type="text" maxlength="6">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="button" value="表示">
+				</td>
+			</tr>
+		</table>
+	</div>
 	<script>
 		document.querySelector('#running_mode').addEventListener('change', ()=>{
 			Array.prototype.forEach.call(document.querySelectorAll('.mode_w'), (e)=>{ e.style.display='none'; });
