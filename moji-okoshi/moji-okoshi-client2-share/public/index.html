@@ -64,7 +64,7 @@
 			<select id="transcription_lang">
 				<option value="ja-JP">日本語</option>
 			</select>
-			<button id="transcription_start">文字起こし 開始</button>
+			<button id="mode_w_transcription_start">文字起こし 開始</button>
 			<span id="mode_w_transcription_status"></span>
 		</div>
 	</div>
@@ -100,20 +100,20 @@
 	<script>
 		const speech = new webkitSpeechRecognition();
 
-		const transcription_start = document.getElementById('transcription_start');
+		const mode_w_transcription_start = document.getElementById('mode_w_transcription_start');
 		const content = document.getElementById('content_w');
 	
-		transcription_start.addEventListener('click' , function() {
+		mode_w_transcription_start.addEventListener('click' , function() {
 			speech.lang = document.getElementById('transcription_lang').value;
 			try {
 				speech.start();
-				transcription_start.disabled = true;
+				mode_w_transcription_start.disabled = true;
 				mode_w_transcription_status = document.getElementById('mode_w_transcription_status');
 				mode_w_transcription_status.innerText = '◉ REC';
 				mode_w_transcription_status.style.color = 'var(--text-color-red)';
 			} catch (error) {
 				console.error(error);
-				transcription_start.disabled = false;
+				mode_w_transcription_start.disabled = false;
 				mode_w_transcription_status.innerText = '';
 			}
 		});
