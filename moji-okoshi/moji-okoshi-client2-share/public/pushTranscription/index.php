@@ -87,6 +87,25 @@ if ( mb_strtolower($_SERVER['REQUEST_METHOD']) == 'post' ) {
 			\PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
 		]
 	);
+	
+	/**
+	 * 存在するKEYのみ受け入れる
+	 */
+	$stm = $pdo->prepare('SELECT * FROM public.transcription WHERE sharecode = ? AND authncode = ? ORDER BY iat ASC;');
+	$res = $stm->execute([
+		$_REQUEST['sharecode'],
+		$_REQUEST['authncode'],
+	]);
+	$res = $stm->rowCount();
+	if ( $res < 1 ) {
+		http_response_code(400);
+		$curl_res['timestamp'] = time();
+		$curl_res['mesg']      = 'Bad Request.';
+	
+		echo json_encode($curl_res);
+		exit();
+	}
+
 	$stm = $pdo->prepare('INSERT INTO transcription (uuid, iat, sharecode, authncode, clientip, transcription) VALUES (?,?,?,?,?,?);');
 	$res = $stm->execute([
 		$_REQUEST['sharecode'] . $curl_res['timestamp'],
