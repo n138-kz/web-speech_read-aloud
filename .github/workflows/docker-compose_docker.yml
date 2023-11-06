@@ -2,9 +2,9 @@ name: Docker Compose Image CI (path=/moji-okoshi/moji-okoshi-client2-share/docke
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "1699296165_moji-okoshi-v2" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "1699296165_moji-okoshi-v2" ]
 
 jobs:
   build:
