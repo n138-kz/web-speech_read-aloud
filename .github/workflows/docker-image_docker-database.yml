@@ -2,17 +2,15 @@ name: Docker Image CI (name=moji-okoshi-v2, path=/moji-okoshi/moji-okoshi-client
 
 on:
   push:
-    branches: [ "1699296165_moji-okoshi-v2" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "1699296165_moji-okoshi-v2" ]
+    branches: [ "main" ]
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
+    
     - name: Build the Docker image path=/moji-okoshi/moji-okoshi-client2-share/docker/database
       run: docker build . --file ./moji-okoshi/moji-okoshi-client2-share/docker/database/Dockerfile --tag my-image-name:$(date +%s)
