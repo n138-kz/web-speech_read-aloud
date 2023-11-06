@@ -13,7 +13,7 @@ services:
          - frontend_mojiokoshi_v2
          - backend_mojiokoshi_v2
       depends_on:
-         - database
+         - database_mojiokoshi_v2
    database_mojiokoshi_v2:
       build: database/
       volumes:
@@ -38,7 +38,7 @@ services:
          - frontend_mojiokoshi_v2
          - backend_mojiokoshi_v2
       depends_on:
-         - database
+         - database_mojiokoshi_v2
 volumes:
    db-store_mojiokoshi_v2:
    pgadmin_mojiokoshi_v2:
