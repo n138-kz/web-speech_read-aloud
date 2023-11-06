@@ -64,57 +64,6 @@
 	</div>
 	<div class="mode_w">
 		<div id="content_w" class="content_area"></div>
-		<script>
-			const speech = new webkitSpeechRecognition();
-			speech.lang = 'ja-JP';
-		
-			const transcription_start = document.getElementById('transcription_start');
-			const content = document.getElementById('content_w');
-		
-			transcription_start.addEventListener('click' , function() {
-				speech.start();
-			});
-	
-			content.addEventListener('dblclick' , function(e) {
-				if (content.contentEditable == 'true') {
-					content.contentEditable = !content.contentEditable;
-	
-					/*
-					 * JavaScriptでテキストファイルを生成してダウンロード
-					 * https://g.co/bard/share/2c49732ef0fb
-					 */
-					var textblob = new Blob([(new Uint8Array([0xEF, 0xBB, 0xBF])), content.innerText], {type: 'text/plain'});
-	
-					var textbloblink = document.createElement("a");
-					textbloblink.href = window.URL.createObjectURL(textblob);
-					textbloblink.download = 'transcription' + '_' + ( (new Date()).getTime() / 1000 ) + '.txt';
-	
-					document.body.appendChild(textbloblink);
-					console.log(textbloblink.href);
-	
-					textbloblink.click();
-				} else {
-					content.contentEditable = !0;
-				}
-			});
-		
-			speech.onresult = function(e) {
-				speech.stop();
-				if(e.results[0].isFinal){
-					var autotext = e.results[0][0].transcript;
-					var elm = document.createElement('div');
-					elm.classList.add('transcription');
-					elm.dataset.issueAtTime = ( (new Date()).getTime() / 1000 );
-					elm.innerText = autotext;
-					content.appendChild(elm);
-					content.scrollTo(0, content.scrollHeight);
-				}
-			}
-		
-			speech.onend = () => { 
-				speech.start() 
-			};
-		</script>
 	</div>
 	<div class="mode_r">
 		<table>
@@ -141,6 +90,56 @@
 		<div id="content_r" class="content_area"></div>
 	</div>
 	<script>
+		const speech = new webkitSpeechRecognition();
+		speech.lang = 'ja-JP';
+	
+		const transcription_start = document.getElementById('transcription_start');
+		const content = document.getElementById('content_w');
+	
+		transcription_start.addEventListener('click' , function() {
+			speech.start();
+		});
+
+		content.addEventListener('dblclick' , function(e) {
+			if (content.contentEditable == 'true') {
+				content.contentEditable = !content.contentEditable;
+
+				/*
+				 * JavaScriptでテキストファイルを生成してダウンロード
+				 * https://g.co/bard/share/2c49732ef0fb
+				 */
+				var textblob = new Blob([(new Uint8Array([0xEF, 0xBB, 0xBF])), content.innerText], {type: 'text/plain'});
+
+				var textbloblink = document.createElement("a");
+				textbloblink.href = window.URL.createObjectURL(textblob);
+				textbloblink.download = 'transcription' + '_' + ( (new Date()).getTime() / 1000 ) + '.txt';
+
+				document.body.appendChild(textbloblink);
+				console.log(textbloblink.href);
+
+				textbloblink.click();
+			} else {
+				content.contentEditable = !0;
+			}
+		});
+	
+		speech.onresult = function(e) {
+			speech.stop();
+			if(e.results[0].isFinal){
+				var autotext = e.results[0][0].transcript;
+				var elm = document.createElement('div');
+				elm.classList.add('transcription');
+				elm.dataset.issueAtTime = ( (new Date()).getTime() / 1000 );
+				elm.innerText = autotext;
+				content.appendChild(elm);
+				content.scrollTo(0, content.scrollHeight);
+			}
+		}
+	
+		speech.onend = () => { 
+			speech.start() 
+		};
+
 		document.querySelector('#issueShareCode').addEventListener('click', ()=>{
 			console.log('#issueShareCode clicked');
 			let xhr = new XMLHttpRequest();
