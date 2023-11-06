@@ -87,7 +87,15 @@ if ( mb_strtolower($_SERVER['REQUEST_METHOD']) == 'post' ) {
 			\PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
 		]
 	);
-	
+
+	/**
+	 * 古いデータの削除(完全削除)
+	 */
+	$stm = $pdo->prepare('DELETE FROM transcription WHERE iat < ?;');
+	$res = $stm->execute([
+		strtotime('-1 day'),
+	]);
+
 	/**
 	 * 存在するKEYのみ受け入れる
 	 */
