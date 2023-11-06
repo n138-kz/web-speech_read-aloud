@@ -168,6 +168,9 @@
 					document.querySelector('#mode_r_form_sharecode').disabled=false;
 					document.querySelector('#mode_r_form_authncode').disabled=false;
 
+					document.querySelector('#issueShareCode').disabled=true;
+					document.querySelector('#running_mode').disabled=true;
+
 				} else if ( xhr.readyState === 4 && xhr.status >= 400 ) {
 					console.debug( xhr, 'err', xhr.responseText, xhr.readyState, xhr.status, xhr.statusText );
 				} else if ( xhr.readyState === 4 ) {
