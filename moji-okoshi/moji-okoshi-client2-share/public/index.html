@@ -78,6 +78,11 @@
 			Array.prototype.forEach.call(document.querySelectorAll('.mode_w'), (e)=>{ e.style.display='none'; });
 			Array.prototype.forEach.call(document.querySelectorAll('.mode_r'), (e)=>{ e.style.display='none'; });
 
+			document.querySelector('#mode_w_form_sharecode').value='';
+			document.querySelector('#mode_w_form_authncode').value='';
+			document.querySelector('#mode_r_form_sharecode').value='';
+			document.querySelector('#mode_r_form_authncode').value='';
+
 			if (false) {
 			} else if (document.querySelector('#running_mode').value=='w') {
 				Array.prototype.forEach.call(document.querySelectorAll('.mode_w'), (e)=>{ e.style.display='block'; });
