@@ -1,0 +1,22 @@
+name: Docker Compose Image CI (path=/moji-okoshi/moji-okoshi-client2-share/docker)
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Build the Docker network frontend
+      run: docker network create frontend_mojiokoshi_v2 
+      
+    - name: Build the Docker network backend
+      run: docker network create backend_mojiokoshi_v2 
+      
+    - name: Build the Docker image path=/docker
+      run: docker compose --file ./moji-okoshi/moji-okoshi-client2-share/docker/docker-compose.yml up -d --build
