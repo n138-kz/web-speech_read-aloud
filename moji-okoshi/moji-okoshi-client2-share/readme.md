@@ -24,7 +24,7 @@
 | 内容                   | DB上の名称    | 型   | 属性                        | 備考                        | 
 | :--------------------: | :-----------: | :--: | --------------------------- | --------------------------- | 
 | UUID                   | uuid          | text | primary / unique / not null | タイムスタンプ + 共有コード | 
-| タイムスタンプ         | iat           | int  | unique / not null           |                             | 
+| タイムスタンプ         | iat           | float | unique / not null           |                             | 
 | 共有コード             | sharecode     | text | not null                    |                             | 
 | 認証コード             | authncode     | text | not null                    |                             | 
 | 文字起こし元IPアドレス | clientip      | text | not null                    |                             | 
