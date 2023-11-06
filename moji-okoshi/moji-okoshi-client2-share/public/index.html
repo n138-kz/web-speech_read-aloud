@@ -154,6 +154,9 @@
 					let response = JSON.parse(responseText);
 					console.log( response );
 
+					document.querySelector('#mode_w_form_connectivity').innerText = response.connected ? '● Connected' : '● Disconnect';
+					document.querySelector('#mode_w_form_connectivity').style.color = response.connected ? 'var(--text-color-green)' : 'var(--text-color-red)';
+
 				} else if ( xhr.readyState === 4 && xhr.status >= 400 ) {
 					console.debug( xhr, 'err', xhr.responseText, xhr.readyState, xhr.status, xhr.statusText );
 				} else if ( xhr.readyState === 4 ) {
