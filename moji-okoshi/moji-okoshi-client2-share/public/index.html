@@ -95,12 +95,12 @@
 	</div>
 	<script>
 		const speech = new webkitSpeechRecognition();
-		speech.lang = 'ja-JP';
-	
+
 		const transcription_start = document.getElementById('transcription_start');
 		const content = document.getElementById('content_w');
 	
 		transcription_start.addEventListener('click' , function() {
+			speech.lang = 'ja-JP';
 			speech.start();
 		});
 
