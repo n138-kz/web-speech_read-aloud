@@ -10,6 +10,8 @@
 			--margin-padding--defaultsize: 0;
 			--default-background-color: #F0FFFFFF;
 			--default-text-color: #000000FF;
+			--text-color-red: #FF0000FF;
+			--text-color-green: #009900FF;
 		}
 		html {
 			margin: var(--margin-padding--defaultsize);
@@ -21,9 +23,254 @@
 			margin: var(--margin-padding--defaultsize);
 			padding: var(--margin-padding--defaultsize);
 		}
+		.mode_w {
+			display: block;
+		}
+		.mode_r {
+			display: none;
+		}
 	</style>
 </head>
 <body>
+	<div>
+		<select id="running_mode">
+			<option value="w">文字起こし専用</option>
+			<option value="r" disabled>文字起こし表示</option>
+		</select>
+	</div>
+	<div class="mode_w">
+		<button id="issueShareCode">共有/認証コード 発行</button>
+	</div>
+	<div class="mode_w">
+		<table>
+			<tr>
+				<th>共有コード</th>
+				<td>
+					<input id="mode_w_form_sharecode" type="text" maxlength="6" disabled>
+				</td>
+			</tr>
+			<tr>
+				<th>認証コード</th>
+				<td>
+					<input id="mode_w_form_authncode" type="text" maxlength="8" disabled>
+				</td>
+			</tr>
+			<tr>
+				<th>接続状態</th>
+				<td><span id="mode_w_form_connectivity" style="color: var(--text-color-red);">● Disconnect</span></td>
+			</tr>
+		</table>
+		<div>
+			<select id="transcription_lang">
+				<option value="ja-JP">日本語</option>
+			</select>
+			<button id="mode_w_transcription_start">文字起こし 開始</button>
+			<span id="mode_w_transcription_status"></span>
+		</div>
+	</div>
+	<div class="mode_w">
+		<div id="content_w" class="content_area"></div>
+	</div>
+	<div class="mode_r">
+		<table>
+			<tr>
+				<th>共有コード</th>
+				<td>
+					<input id="mode_r_form_sharecode" type="text" maxlength="6">
+				</td>
+			</tr>
+			<tr>
+				<th>認証コード</th>
+				<td>
+					<input id="mode_r_form_authncode" type="text" maxlength="8">
+				</td>
+			</tr>
+			<tr>
+				<th>接続状態</th>
+				<td><span id="mode_r_form_connectivity" style="color: var(--text-color-red);">● Disconnect</span></td>
+			</tr>
+		</table>
+		<div>
+			<button id="mode_r_transcription_start">文字起こし 表示</button>
+			<span id="mode_r_transcription_status"></span>
+		</div>
+	</div>
+	<div class="mode_r">
+		<div id="content_r" class="content_area"></div>
+	</div>
+	<script>
+		const speech = new webkitSpeechRecognition();
+
+		const mode_w_transcription_start = document.getElementById('mode_w_transcription_start');
+		const content = document.getElementById('content_w');
 	
+		mode_w_transcription_start.addEventListener('click' , function() {
+			speech.lang = document.getElementById('transcription_lang').value;
+			try {
+				speech.start();
+				mode_w_transcription_start.disabled = true;
+				mode_w_transcription_status = document.getElementById('mode_w_transcription_status');
+				mode_w_transcription_status.innerText = '◉ REC';
+				mode_w_transcription_status.style.color = 'var(--text-color-red)';
+			} catch (error) {
+				console.error(error);
+				mode_w_transcription_start.disabled = false;
+				mode_w_transcription_status.innerText = '';
+			}
+		});
+
+		content.addEventListener('dblclick' , function(e) {
+			if (content.contentEditable == 'true') {
+				content.contentEditable = !content.contentEditable;
+
+				/*
+				 * JavaScriptでテキストファイルを生成してダウンロード
+				 * https://g.co/bard/share/2c49732ef0fb
+				 */
+				var textblob = new Blob([(new Uint8Array([0xEF, 0xBB, 0xBF])), content.innerText], {type: 'text/plain'});
+
+				var textbloblink = document.createElement("a");
+				textbloblink.href = window.URL.createObjectURL(textblob);
+				textbloblink.download = 'transcription' + '_' + ( (new Date()).getTime() / 1000 ) + '.txt';
+
+				document.body.appendChild(textbloblink);
+				console.log(textbloblink.href);
+
+				textbloblink.click();
+			} else {
+				content.contentEditable = !0;
+			}
+		});
+	
+		speech.onresult = function(e) {
+			speech.stop();
+			if(e.results[0].isFinal){
+				var autotext = e.results[0][0].transcript;
+				var elm = document.createElement('div');
+				elm.classList.add('transcription');
+				elm.dataset.issueAtTime = ( (new Date()).getTime() / 1000 );
+				elm.innerText = autotext;
+				content.appendChild(elm);
+				content.scrollTo(0, content.scrollHeight);
+
+				console.log(autotext);
+
+				let mode_w_form_sharecode = document.querySelector('#mode_w_form_sharecode');
+				let mode_w_form_authncode = document.querySelector('#mode_w_form_authncode');
+				if ( mode_w_form_sharecode.value != '' && mode_w_form_authncode.value != '' ) {
+					let xhr = new XMLHttpRequest();
+					xhr.onreadystatechange = ()=>{
+						if ( xhr.readyState === 4 && xhr.status >= 200 && xhr.status < 300 ) {
+							console.debug( xhr, '2xx', xhr.responseText, xhr.readyState, xhr.status, xhr.statusText );
+	
+							let responseText = xhr.responseText;
+							console.debug( responseText );
+	
+							let response = JSON.parse(responseText);
+							console.log( response );
+						} else if ( xhr.readyState === 4 && xhr.status >= 400 ) {
+						console.debug( xhr, 'err', xhr.responseText, xhr.readyState, xhr.status, xhr.statusText );
+						} else if ( xhr.readyState === 4 ) {
+							console.debug( xhr, 'rs4', xhr.responseText, xhr.readyState, xhr.status, xhr.statusText );
+						} else {
+							console.debug( xhr, 'wip', xhr.responseText, xhr.readyState, xhr.status, xhr.statusText );
+						}
+					};
+					xhr.open(
+						'POST', './pushTranscription/'
+					);
+					xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+					xhr.send(
+						'timestamp='+(Math.floor((new Date()).getTime()/1000))
+						+ '&sharecode='+mode_w_form_sharecode.value
+						+ '&authncode='+mode_w_form_authncode.value
+						+ '&transcription='+autotext
+						+ '&token='+''
+					);
+				} else {
+					console.error(
+						mode_w_form_sharecode,
+						mode_w_form_authncode,
+					);
+				}
+
+			}
+		}
+	
+		speech.onend = () => { 
+			speech.start() 
+		};
+
+		document.querySelector('#issueShareCode').addEventListener('click', ()=>{
+			console.log('#issueShareCode clicked');
+
+			let xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = ()=>{
+				if ( xhr.readyState === 4 && xhr.status >= 200 && xhr.status < 300 ) {
+					console.debug( xhr, '2xx', xhr.responseText, xhr.readyState, xhr.status, xhr.statusText );
+
+					let responseText = xhr.responseText;
+					console.debug( responseText );
+
+					let response = JSON.parse(responseText);
+					console.log( response );
+
+					document.querySelector('#mode_w_form_sharecode').value = response.sharecode;
+					document.querySelector('#mode_w_form_authncode').value = response.authncode;
+					document.querySelector('#mode_w_form_connectivity').innerText = response.connected ? '● Connected' : '● Disconnect';
+					document.querySelector('#mode_w_form_connectivity').style.color = response.connected ? 'var(--text-color-green)' : 'var(--text-color-red)';
+
+					document.querySelector('#mode_w_form_sharecode').readOnly=true;
+					document.querySelector('#mode_w_form_authncode').readOnly=true;
+					document.querySelector('#mode_w_form_sharecode').disabled=false;
+					document.querySelector('#mode_w_form_authncode').disabled=false;
+					document.querySelector('#mode_r_form_sharecode').readOnly=true;
+					document.querySelector('#mode_r_form_authncode').readOnly=true;
+					document.querySelector('#mode_r_form_sharecode').disabled=false;
+					document.querySelector('#mode_r_form_authncode').disabled=false;
+
+					document.querySelector('#issueShareCode').disabled=true;
+					document.querySelector('#running_mode').disabled=true;
+
+					let webapp_pagetitle = document.title;
+					document.title += ';';
+					document.title += ' ' + response.sharecode;
+					document.title += ' /';
+					document.title += ' ' + response.authncode;
+
+				} else if ( xhr.readyState === 4 && xhr.status >= 400 ) {
+					console.debug( xhr, 'err', xhr.responseText, xhr.readyState, xhr.status, xhr.statusText );
+				} else if ( xhr.readyState === 4 ) {
+					console.debug( xhr, 'rs4', xhr.responseText, xhr.readyState, xhr.status, xhr.statusText );
+				} else {
+					console.debug( xhr, 'wip', xhr.responseText, xhr.readyState, xhr.status, xhr.statusText );
+				}
+			};
+			xhr.open(
+				'POST', 'issueShareAuthnCode/'
+			);
+			xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+			xhr.send(
+				'timestamp='+(Math.floor((new Date()).getTime()/1000))
+				+ '&token='+''
+			);
+		});
+		document.querySelector('#running_mode').addEventListener('change', ()=>{
+			Array.prototype.forEach.call(document.querySelectorAll('.mode_w'), (e)=>{ e.style.display='none'; });
+			Array.prototype.forEach.call(document.querySelectorAll('.mode_r'), (e)=>{ e.style.display='none'; });
+
+			document.querySelector('#mode_w_form_sharecode').value='';
+			document.querySelector('#mode_w_form_authncode').value='';
+			document.querySelector('#mode_r_form_sharecode').value='';
+			document.querySelector('#mode_r_form_authncode').value='';
+
+			if (false) {
+			} else if (document.querySelector('#running_mode').value=='w') {
+				Array.prototype.forEach.call(document.querySelectorAll('.mode_w'), (e)=>{ e.style.display='block'; });
+			} else if (document.querySelector('#running_mode').value=='r') {
+				Array.prototype.forEach.call(document.querySelectorAll('.mode_r'), (e)=>{ e.style.display='block'; });
+			}
+		});
+	</script>
 </body>
 </html>
