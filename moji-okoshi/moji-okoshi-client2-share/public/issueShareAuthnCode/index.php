@@ -36,3 +36,10 @@ if ( abs(time()-$_REQUEST['timestamp'])>600 ) {
 	exit();
 }
 
+function issue_num_rand($len=0) {
+	$result = '';
+	for( $i=0; $i<$len; $i++ ) {
+		$result .= rand(0, 9);
+	}
+	return $result;
+}
