@@ -72,8 +72,6 @@ if ( mb_strtolower($_SERVER['REQUEST_METHOD']) == 'post' ) {
 	header('content-type: Application/json');
 
 	$curl_res['timestamp'] = microtime(true);
-	$curl_res['sharecode'] = $_REQUEST['sharecode'];
-	$curl_res['authncode'] = $_REQUEST['authncode'];
 	$curl_res['connected'] = false;
 	
 	$pdo = new \PDO(
@@ -88,12 +86,12 @@ if ( mb_strtolower($_SERVER['REQUEST_METHOD']) == 'post' ) {
 	);
 	$stm = $pdo->prepare('INSERT INTO transcription (uuid, iat, sharecode, authncode, clientip, transcription) VALUES (?,?,?,?,?,?);');
 	$res = $stm->execute([
-		$curl_res['sharecode'] . $curl_res['timestamp'],
+		$_REQUEST['sharecode'] . $curl_res['timestamp'],
 		$curl_res['timestamp'],
-		$curl_res['sharecode'],
-		$curl_res['authncode'],
+		$_REQUEST['sharecode'],
+		$_REQUEST['authncode'],
 		$_SERVER['REMOTE_ADDR'],
-		$curl_res['transcription'],
+		$_REQUEST['transcription'],
 	]);
 	$curl_res['connected'] = $res;
 
