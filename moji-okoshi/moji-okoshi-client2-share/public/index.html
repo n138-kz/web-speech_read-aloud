@@ -34,6 +34,7 @@
 	<div class="mode_r"></div>
 	<script>
 		document.querySelector('#running_mode').addEventListener('change', ()=>{
+			Array.prototype.forEach.call(document.querySelectorAll('.mode_w'), (e)=>{ e.style.display='none'; });
 		});
 	</script>
 </body>
