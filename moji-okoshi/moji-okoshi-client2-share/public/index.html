@@ -217,6 +217,12 @@
 					document.querySelector('#issueShareCode').disabled=true;
 					document.querySelector('#running_mode').disabled=true;
 
+					let webapp_pagetitle = document.title;
+					document.title += ';';
+					document.title += ' ' + response.sharecode;
+					document.title += ' /';
+					document.title += ' ' + response.authncode;
+
 				} else if ( xhr.readyState === 4 && xhr.status >= 400 ) {
 					console.debug( xhr, 'err', xhr.responseText, xhr.readyState, xhr.status, xhr.statusText );
 				} else if ( xhr.readyState === 4 ) {
