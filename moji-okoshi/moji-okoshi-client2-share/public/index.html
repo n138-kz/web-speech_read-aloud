@@ -208,12 +208,12 @@
 					document.querySelector('#mode_w_form_connectivity').innerText = response.connected ? '● Connected' : '● Disconnect';
 					document.querySelector('#mode_w_form_connectivity').style.color = response.connected ? 'var(--text-color-green)' : 'var(--text-color-red)';
 
-					document.querySelector('#mode_w_form_sharecode').readonly=true;
-					document.querySelector('#mode_r_form_authncode').readonly=true;
+					document.querySelector('#mode_w_form_sharecode').readOnly=true;
+					document.querySelector('#mode_w_form_authncode').readOnly=true;
 					document.querySelector('#mode_w_form_sharecode').disabled=false;
 					document.querySelector('#mode_w_form_authncode').disabled=false;
-					document.querySelector('#mode_w_form_authncode').readonly=true;
-					document.querySelector('#mode_r_form_sharecode').readonly=true;
+					document.querySelector('#mode_r_form_sharecode').readOnly=true;
+					document.querySelector('#mode_r_form_authncode').readOnly=true;
 					document.querySelector('#mode_r_form_sharecode').disabled=false;
 					document.querySelector('#mode_r_form_authncode').disabled=false;
 
