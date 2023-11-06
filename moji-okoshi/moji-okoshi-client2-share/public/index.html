@@ -104,7 +104,17 @@
 	
 		transcription_start.addEventListener('click' , function() {
 			speech.lang = document.getElementById('transcription_lang').value;
-			speech.start();
+			try {
+				speech.start();
+				transcription_start.disabled = true;
+				transcription_status = document.getElementById('transcription_status');
+				transcription_status.innerText = '◉ REC';
+				transcription_status.style.color = 'var(--text-color-red)';
+			} catch (error) {
+				console.error(error);
+				transcription_start.disabled = false;
+				transcription_status.innerText = '';
+			}
 		});
 
 		content.addEventListener('dblclick' , function(e) {
