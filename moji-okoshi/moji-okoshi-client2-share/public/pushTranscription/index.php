@@ -73,6 +73,9 @@ if ( mb_strtolower($_SERVER['REQUEST_METHOD']) == 'post' ) {
 
 	$curl_res['timestamp'] = microtime(true);
 	$curl_res['connected'] = false;
+	$curl_res['sharecode'] = $_REQUEST['sharecode'];
+	$curl_res['writed_bytes'] = strlen($_REQUEST['transcription']);
+	$curl_res['writed_hash'] = hash('sha256', $_REQUEST['transcription']);
 	
 	$pdo = new \PDO(
 		'pgsql:dbname=webapp host=database_mojiokoshi_v2 port=5432',
