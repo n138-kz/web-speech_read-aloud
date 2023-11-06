@@ -36,6 +36,13 @@
 		document.querySelector('#running_mode').addEventListener('change', ()=>{
 			Array.prototype.forEach.call(document.querySelectorAll('.mode_w'), (e)=>{ e.style.display='none'; });
 			Array.prototype.forEach.call(document.querySelectorAll('.mode_r'), (e)=>{ e.style.display='none'; });
+
+			if (false) {
+			} else if (document.querySelector('#running_mode').value=='w') {
+				Array.prototype.forEach.call(document.querySelectorAll('.mode_w'), (e)=>{ e.style.display='block'; });
+			} else if (document.querySelector('#running_mode').value=='r') {
+				Array.prototype.forEach.call(document.querySelectorAll('.mode_r'), (e)=>{ e.style.display='block'; });
+			}
 		});
 	</script>
 </body>
