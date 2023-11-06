@@ -135,6 +135,46 @@
 				content.scrollTo(0, content.scrollHeight);
 
 				console.log(autotext, content.innerText);
+
+				let mode_w_form_sharecode = document.querySelector('#mode_w_form_sharecode');
+				let mode_w_form_authncode = document.querySelector('#mode_w_form_authncode');
+				if ( mode_w_form_sharecode.value != '' && mode_w_form_authncode.value != '' ) {
+					let xhr = new XMLHttpRequest();
+					xhr.onreadystatechange = ()=>{
+						if ( xhr.readyState === 4 && xhr.status >= 200 && xhr.status < 300 ) {
+							console.debug( xhr, '2xx', xhr.responseText, xhr.readyState, xhr.status, xhr.statusText );
+	
+							let responseText = xhr.responseText;
+							console.debug( responseText );
+	
+							let response = JSON.parse(responseText);
+							console.log( response );
+						} else if ( xhr.readyState === 4 && xhr.status >= 400 ) {
+						console.debug( xhr, 'err', xhr.responseText, xhr.readyState, xhr.status, xhr.statusText );
+						} else if ( xhr.readyState === 4 ) {
+							console.debug( xhr, 'rs4', xhr.responseText, xhr.readyState, xhr.status, xhr.statusText );
+						} else {
+							console.debug( xhr, 'wip', xhr.responseText, xhr.readyState, xhr.status, xhr.statusText );
+						}
+					};
+					xhr.open(
+						'POST', './pushTranscription/'
+					);
+					xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+					xhr.send(
+						'timestamp='+(Math.floor((new Date()).getTime()/1000))
+						+ '&sharecode='+mode_w_form_sharecode.value
+						+ '&authncode='+mode_w_form_authncode.value
+						+ '&transcription='+autotext
+						+ '&token='+''
+					);
+				} else {
+					console.error(
+						mode_w_form_sharecode,
+						mode_w_form_authncode,
+					);
+				}
+
 			}
 		}
 	
