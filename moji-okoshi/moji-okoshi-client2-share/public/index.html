@@ -65,7 +65,7 @@
 				<option value="ja-JP">日本語</option>
 			</select>
 			<button id="transcription_start">文字起こし 開始</button>
-			<span id="transcription_status"></span>
+			<span id="mode_w_transcription_status"></span>
 		</div>
 	</div>
 	<div class="mode_w">
@@ -108,13 +108,13 @@
 			try {
 				speech.start();
 				transcription_start.disabled = true;
-				transcription_status = document.getElementById('transcription_status');
-				transcription_status.innerText = '◉ REC';
-				transcription_status.style.color = 'var(--text-color-red)';
+				mode_w_transcription_status = document.getElementById('mode_w_transcription_status');
+				mode_w_transcription_status.innerText = '◉ REC';
+				mode_w_transcription_status.style.color = 'var(--text-color-red)';
 			} catch (error) {
 				console.error(error);
 				transcription_start.disabled = false;
-				transcription_status.innerText = '';
+				mode_w_transcription_status.innerText = '';
 			}
 		});
 
