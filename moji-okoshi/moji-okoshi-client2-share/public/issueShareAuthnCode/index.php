@@ -3,7 +3,7 @@
 $_SESSION = [];
 $curl_res = [];
 
-if ( mb_strtolower($_SERVER['REQUEST_METHOD']) != 'get' ) {
+if ( mb_strtolower($_SERVER['REQUEST_METHOD']) != 'get' || mb_strtolower($_SERVER['REQUEST_METHOD']) != 'post' ) {
 	http_response_code(405);
 	$curl_res['timestamp'] = time();
 	$curl_res['mesg']      = 'Method Not Allowed.';
