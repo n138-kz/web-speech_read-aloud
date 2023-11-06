@@ -2,9 +2,9 @@ name: Docker Image CI (name=moji-okoshi-v2, path=/moji-okoshi/moji-okoshi-client
 
 on:
   push:
-    branches: [ "1699296165_moji-okoshi-v2" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "1699296165_moji-okoshi-v2" ]
+    branches: [ "main" ]
 
 jobs:
   build:
