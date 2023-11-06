@@ -61,6 +61,9 @@
 			</tr>
 		</table>
 		<div>
+			<select id="transcription_lang">
+				<option value="ja-JP">日本語</option>
+			</select>
 			<button id="transcription_start">文字起こし 開始</button>
 		</div>
 	</div>
@@ -100,7 +103,7 @@
 		const content = document.getElementById('content_w');
 	
 		transcription_start.addEventListener('click' , function() {
-			speech.lang = 'ja-JP';
+			speech.lang = document.getElementById('transcription_lang').value;
 			speech.start();
 		});
 
