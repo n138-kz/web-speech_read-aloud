@@ -135,6 +135,9 @@
 		</table>
 		<button>文字起こし 表示</button>
 	</div>
+	<div class="mode_r">
+		<div id="content_r" class="content_area"></div>
+	</div>
 	<script>
 		document.querySelector('#running_mode').addEventListener('change', ()=>{
 			Array.prototype.forEach.call(document.querySelectorAll('.mode_w'), (e)=>{ e.style.display='none'; });
