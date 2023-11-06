@@ -36,7 +36,6 @@
 			<option value="r">文字起こし表示</option>
 		</select>
 	</div>
-	<div class="mode_r">
 	<div class="mode_w">
 		<button>共有/認証コード 発行</button>
 	</div>
@@ -53,12 +52,22 @@
 					<input type="text" maxlength="6">
 				</td>
 			</tr>
+	<div class="mode_r">
+		<table>
 			<tr>
+				<th>共有コード</th>
 				<td>
-					<input type="button" value="表示">
+					<input id="mode_r_form_sharecode" type="text" maxlength="8">
+				</td>
+			</tr>
+			<tr>
+				<th>認証コード</th>
+				<td>
+					<input id="mode_r_form_authncode" type="text" maxlength="6">
 				</td>
 			</tr>
 		</table>
+		<button>文字起こし 表示</button>
 	</div>
 	<script>
 		document.querySelector('#running_mode').addEventListener('change', ()=>{
