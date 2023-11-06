@@ -154,8 +154,19 @@
 					let response = JSON.parse(responseText);
 					console.log( response );
 
+					document.querySelector('#mode_w_form_sharecode').value = response.sharecode;
+					document.querySelector('#mode_w_form_authncode').value = response.authncode;
 					document.querySelector('#mode_w_form_connectivity').innerText = response.connected ? '● Connected' : '● Disconnect';
 					document.querySelector('#mode_w_form_connectivity').style.color = response.connected ? 'var(--text-color-green)' : 'var(--text-color-red)';
+
+					document.querySelector('#mode_w_form_sharecode').readonly=true;
+					document.querySelector('#mode_r_form_authncode').readonly=true;
+					document.querySelector('#mode_w_form_sharecode').disabled=false;
+					document.querySelector('#mode_w_form_authncode').disabled=false;
+					document.querySelector('#mode_w_form_authncode').readonly=true;
+					document.querySelector('#mode_r_form_sharecode').readonly=true;
+					document.querySelector('#mode_r_form_sharecode').disabled=false;
+					document.querySelector('#mode_r_form_authncode').disabled=false;
 
 				} else if ( xhr.readyState === 4 && xhr.status >= 400 ) {
 					console.debug( xhr, 'err', xhr.responseText, xhr.readyState, xhr.status, xhr.statusText );
