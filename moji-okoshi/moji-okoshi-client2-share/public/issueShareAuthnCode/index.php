@@ -3,7 +3,7 @@
 $_SESSION = [];
 $curl_res = [];
 
-if ( mb_strtolower($_SERVER['REQUEST_METHOD']) != 'get' || mb_strtolower($_SERVER['REQUEST_METHOD']) != 'post' ) {
+if ( !( mb_strtolower($_SERVER['REQUEST_METHOD']) == 'get' || mb_strtolower($_SERVER['REQUEST_METHOD']) == 'post' ) ) {
 	http_response_code(405);
 	$curl_res['timestamp'] = time();
 	$curl_res['mesg']      = 'Method Not Allowed.';
@@ -19,7 +19,7 @@ if ( !isset($_REQUEST) || !is_array($_REQUEST) ) {
 	echo json_encode($curl_res);
 	exit();
 }
-if ( !isset($_REQUEST['timestamp']) || (! $_REQUEST['timestamp'] > 0) ) {
+if ( !isset($_REQUEST['timestamp']) || !( $_REQUEST['timestamp'] > 0) ) {
 	http_response_code(400);
 	$curl_res['timestamp'] = time();
 	$curl_res['mesg']      = 'Bad Request.';
