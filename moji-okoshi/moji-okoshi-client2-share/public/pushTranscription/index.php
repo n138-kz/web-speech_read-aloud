@@ -91,7 +91,7 @@ if ( mb_strtolower($_SERVER['REQUEST_METHOD']) == 'post' ) {
 	/**
 	 * 存在するKEYのみ受け入れる
 	 */
-	$stm = $pdo->prepare('SELECT * FROM public.transcription WHERE sharecode = ? AND authncode = ? ORDER BY iat ASC;');
+	$stm = $pdo->prepare('SELECT * FROM transcription WHERE sharecode = ? AND authncode = ? ORDER BY iat ASC;');
 	$res = $stm->execute([
 		$_REQUEST['sharecode'],
 		$_REQUEST['authncode'],
