@@ -37,7 +37,7 @@
 		</select>
 	</div>
 	<div class="mode_w">
-		<button>共有/認証コード 発行</button>
+		<button id="issueShareCode">共有/認証コード 発行</button>
 	</div>
 	<div class="mode_w">
 		<table>
@@ -139,6 +139,36 @@
 		<div id="content_r" class="content_area"></div>
 	</div>
 	<script>
+		document.querySelector('#issueShareCode').addEventListener('click', ()=>{
+			console.log('#issueShareCode clicked');
+			const xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = ()=>{
+				if ( xhr.readyState === 4 && xhr.status >= 200 && xhr.status < 300 ) {
+					console.debug( xhr, '2xx', xhr.responseText, xhr.readyState, xhr.status, xhr.statusText );
+
+					let responseText = xhr.responseText;
+					console.debug( responseText );
+
+					let response = JSON.parse(responseText);
+					console.debug( response );
+				} else if ( xhr.readyState === 4 && xhr.status >= 400 ) {
+					console.debug( xhr, 'err', xhr.responseText, xhr.readyState, xhr.status, xhr.statusText );
+				} else if ( xhr.readyState === 4 ) {
+					console.debug( xhr, 'rs4', xhr.responseText, xhr.readyState, xhr.status, xhr.statusText );
+				} else {
+					console.debug( xhr, 'wip', xhr.responseText, xhr.readyState, xhr.status, xhr.statusText );
+				}
+			};
+			xhr.open(
+				'POST', 'issueShareAuthnCode/'
+			);
+			xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+			xhr.send(
+				'timestamp='+(Math.floor((new Date()).getTime()/1000))
+				+ '&token='+''
+			);
+			xhr.abort();
+		});
 		document.querySelector('#running_mode').addEventListener('change', ()=>{
 			Array.prototype.forEach.call(document.querySelectorAll('.mode_w'), (e)=>{ e.style.display='none'; });
 			Array.prototype.forEach.call(document.querySelectorAll('.mode_r'), (e)=>{ e.style.display='none'; });
