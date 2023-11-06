@@ -1,2 +1,6 @@
-
-*.bak
+backup/
+*.bak*
+*.tmp
+*.db
+*.dat
+*.secret
