@@ -152,7 +152,8 @@
 					console.debug( responseText );
 
 					let response = JSON.parse(responseText);
-					console.debug( response );
+					console.log( response );
+
 				} else if ( xhr.readyState === 4 && xhr.status >= 400 ) {
 					console.debug( xhr, 'err', xhr.responseText, xhr.readyState, xhr.status, xhr.statusText );
 				} else if ( xhr.readyState === 4 ) {
