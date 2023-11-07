@@ -22,4 +22,5 @@ RUN set -x && \
 	docker-php-ext-install pdo_pgsql
 
 RUN set -x && \
-	apt-get install certbot
+	apt-get -y install certbot
+
