@@ -4,6 +4,7 @@ services:
       build: webapp/
       ports:
          - "80"
+         - "443"
       volumes:
          - type: bind
            source: ../public/
@@ -31,6 +32,7 @@ services:
       image: dpage/pgadmin4:latest
       ports:
          - "80"
+         - "443"
       environment:
          - PGADMIN_DEFAULT_EMAIL=phppgadmin@n138.jp
          - PGADMIN_DEFAULT_PASSWORD=phppgadmin
