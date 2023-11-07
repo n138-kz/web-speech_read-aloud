@@ -1,48 +1,54 @@
 version: "3.9"
 services:
-   webapp_mojiokoshi_v2:
+   webapp:
       build: webapp/
       ports:
          - "80"
+         - "443"
       volumes:
          - type: bind
            source: ../public/
            target: /var/www/html
+         - type: volume
+           source: webapp-etc
+           target: /etc
       restart: unless-stopped
       networks:
-         - frontend_mojiokoshi_v2
-         - backend_mojiokoshi_v2
+         - frontend
+         - backend
       depends_on:
-         - database_mojiokoshi_v2
-   database_mojiokoshi_v2:
+         - database
+   database:
       build: database/
       volumes:
-         - db-store_mojiokoshi_v2:/var/lib/postgresql/data
+         - db-store:/var/lib/postgresql/data
       environment:
          - POSTGRES_PASSWORD=passw0rd
          - POSTGRES_DB=webapp
       restart: unless-stopped
       networks:
-         - backend_mojiokoshi_v2
-   phpPgAdmin_mojiokoshi_v2:
+         - backend
+   phpPgAdmin:
       image: dpage/pgadmin4:latest
       ports:
          - "80"
+         - "443"
       environment:
          - PGADMIN_DEFAULT_EMAIL=phppgadmin@n138.jp
          - PGADMIN_DEFAULT_PASSWORD=phppgadmin
       restart: unless-stopped
       volumes:
-         - pgadmin_mojiokoshi_v2:/var/lib/pgadmin
+         - pgadmin:/var/lib/pgadmin
       networks:
-         - frontend_mojiokoshi_v2
-         - backend_mojiokoshi_v2
+         - frontend
+         - backend
       depends_on:
-         - database_mojiokoshi_v2
+         - database
 volumes:
-   db-store_mojiokoshi_v2:
-   pgadmin_mojiokoshi_v2:
+   db-store:
+   pgadmin:
+   webapp-etc:
 networks:
-   frontend_mojiokoshi_v2:
+   frontend:
       external: true
-   backend_mojiokoshi_v2:
+   backend:
