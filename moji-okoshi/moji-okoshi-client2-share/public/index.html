@@ -345,6 +345,8 @@
 					mode_r_transcription_status.innerText = '◉ Connecting';
 					mode_r_transcription_status.style.color = 'var(--text-color-orange)';
 				}
+
+				mode_r_transcription_start.disabled = true;
 			} catch (error) {
 				console.error(error);
 				mode_r_transcription_status.innerText = '';
