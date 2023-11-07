@@ -307,6 +307,12 @@
 				mode_r_form_authncode.style.backgroundColor = 'var(--default-formbox-background-color)';
 				Array.prototype.forEach.call( document.querySelectorAll('.mode_r_form_validation_error'), (e)=>{ e.remove(); });
 
+				if (false) {
+				} else if (false) {
+				} else {
+					mode_r_transcription_status.innerText = '◉ Connecting';
+					mode_r_transcription_status.style.color = 'var(--text-color-orange)';
+				}
 			} catch (error) {
 				console.error(error);
 				mode_r_transcription_status.innerText = '';
