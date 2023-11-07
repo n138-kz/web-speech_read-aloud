@@ -348,6 +348,9 @@
 
 				mode_r_transcription_start.disabled = true;
 				setInterval(()=>{
+					mode_r_transcription_status.innerText = '◉ Connecting';
+					mode_r_transcription_status.style.color = 'var(--text-color-orange)';
+
 				},1000);
 			} catch (error) {
 				console.error(error);
