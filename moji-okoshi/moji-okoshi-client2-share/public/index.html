@@ -364,6 +364,10 @@
 
 						} else if ( xhr.readyState === 4 && xhr.status >= 400 ) {
 							console.debug( xhr, 'err', xhr.responseText, xhr.readyState, xhr.status, xhr.statusText );
+							mode_r_transcription_status.innerText = '◉ ERROR';
+							mode_r_transcription_status.innerText += ':';
+							mode_r_transcription_status.innerText += '' + xhr.status + '(' + xhr.statusText + ')' + '@http';
+							mode_r_transcription_status.style.color = 'var(--text-color-red)';
 						} else if ( xhr.readyState === 4 ) {
 							console.debug( xhr, 'rs4', xhr.responseText, xhr.readyState, xhr.status, xhr.statusText );
 						} else {
