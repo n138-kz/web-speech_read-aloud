@@ -99,11 +99,17 @@ if ( mb_strtolower($_SERVER['REQUEST_METHOD']) == 'post' ) {
 		http_response_code(400);
 		$curl_res['timestamp'] = time();
 		$curl_res['mesg']      = 'Bad Request.';
+		$curl_res['transcription'] = [];
 	
 		echo json_encode($curl_res);
 		exit();
 	}
 	$curl_res['connected'] = $res>0;
+
+	$res = $stm->fetchAll();
+	foreach ( $res as $key => $val ) {
+		$curl_res['transcription'][] = $val;
+	}
 
 	echo json_encode($curl_res);
 	exit();
