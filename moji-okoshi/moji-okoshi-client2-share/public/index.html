@@ -458,6 +458,16 @@
 				Array.prototype.forEach.call(document.querySelectorAll('.mode_r'), (e)=>{ e.style.display='block'; });
 			}
 		});
+
+		(() => {
+			searchQuery = location.search.replace(/^\?/ig, '').split('&');
+			for (let index = 0; index < searchQuery.length; index++) {
+				searchQuery[index] = searchQuery[index].split('=');
+				searchQuery[searchQuery[index][0]] = String.fromCharCode(searchQuery[index][1].substr(0, 3).replace(/^%/ig, '0x')) + searchQuery[index][1].substr(3, searchQuery[index][1].length-2);
+				delete searchQuery[index];
+			}
+			console.log(searchQuery);
+		})();
 	</script>
 </body>
 </html>
