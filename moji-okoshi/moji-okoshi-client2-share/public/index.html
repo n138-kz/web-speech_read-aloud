@@ -351,6 +351,35 @@
 					mode_r_transcription_status.innerText = '◉ Connecting';
 					mode_r_transcription_status.style.color = 'var(--text-color-orange)';
 
+					let xhr = new XMLHttpRequest();
+					xhr.onreadystatechange = ()=>{
+						if ( xhr.readyState === 4 && xhr.status >= 200 && xhr.status < 300 ) {
+							console.debug( xhr, '2xx', xhr.responseText, xhr.readyState, xhr.status, xhr.statusText );
+	
+							let responseText = xhr.responseText;
+							console.debug( responseText );
+	
+							let response = JSON.parse(responseText);
+							console.log( response );
+
+						} else if ( xhr.readyState === 4 && xhr.status >= 400 ) {
+							console.debug( xhr, 'err', xhr.responseText, xhr.readyState, xhr.status, xhr.statusText );
+						} else if ( xhr.readyState === 4 ) {
+							console.debug( xhr, 'rs4', xhr.responseText, xhr.readyState, xhr.status, xhr.statusText );
+						} else {
+							console.debug( xhr, 'wip', xhr.responseText, xhr.readyState, xhr.status, xhr.statusText );
+						}
+					};
+					xhr.open(
+						'POST', './pullTranscription/'
+					);
+					xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+					xhr.send(
+						'timestamp='+(Math.floor((new Date()).getTime()/1000))
+						+ '&sharecode='+mode_r_form_sharecode.value
+						+ '&authncode='+mode_r_form_authncode.value
+						+ '&token='+''
+					);
 				},1000);
 			} catch (error) {
 				console.error(error);
