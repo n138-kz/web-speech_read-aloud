@@ -297,6 +297,21 @@
 		const mode_r_transcription_start = document.getElementById('mode_r_transcription_start');
 		const content_r = document.getElementById('content_r');
 
+		mode_r_transcription_start.addEventListener('click' , function() {
+			try {
+				mode_r_form_sharecode = document.querySelector('#mode_r_form_sharecode');
+				mode_r_form_authncode = document.querySelector('#mode_r_form_authncode');
+				mode_r_transcription_status = document.getElementById('mode_r_transcription_status');
+
+				mode_r_form_sharecode.style.backgroundColor = 'var(--default-formbox-background-color)';
+				mode_r_form_authncode.style.backgroundColor = 'var(--default-formbox-background-color)';
+				Array.prototype.forEach.call( document.querySelectorAll('.mode_r_form_validation_error'), (e)=>{ e.remove(); });
+
+			} catch (error) {
+				console.error(error);
+				mode_r_transcription_status.innerText = '';
+			}
+		});
 
 		document.querySelector('#running_mode').addEventListener('change', ()=>{
 			Array.prototype.forEach.call(document.querySelectorAll('.mode_w'), (e)=>{ e.style.display='none'; });
