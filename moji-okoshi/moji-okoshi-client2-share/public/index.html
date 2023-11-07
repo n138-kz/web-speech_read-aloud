@@ -221,34 +221,6 @@
 			speech.start() 
 		};
 
-		(()=>{
-			/** 
-			 * 即時実行関数式 (IIFE) + アロー関数
-			*/
-			console.debug(
-				document.querySelector('#design_color_text').value, 
-				String(getComputedStyle( document.querySelector(':root') ).getPropertyValue('--default-text-color')).trim().substr(0, 7)
-			);
-			document.querySelector('#design_color_text').value = String(getComputedStyle( document.querySelector(':root') ).getPropertyValue('--default-text-color')).trim().substr(0, 7)
-			document.documentElement.style.setProperty( '--default-text-color', String(getComputedStyle( document.querySelector(':root') ).getPropertyValue('--default-text-color')).trim().substr(0, 7) );
-			console.debug(
-				document.querySelector('#design_color_bg').value, 
-				String(getComputedStyle( document.querySelector(':root') ).getPropertyValue('--default-background-color')).trim().substr(0, 7)
-			);
-			document.querySelector('#design_color_bg').value = String(getComputedStyle( document.querySelector(':root') ).getPropertyValue('--default-background-color')).trim().substr(0, 7)
-			document.documentElement.style.setProperty( '--default-background-color', String(getComputedStyle( document.querySelector(':root') ).getPropertyValue('--default-background-color')).trim().substr(0, 7) );
-		})();
-		/**
-		 * javascriptでCSS変数の値を取得・変更するサンプルコード
-		 * https://webwork-plus.com/content/design/custom-properties-js.html#7
-		*/
-		document.querySelector('#design_color_text').addEventListener('change', ()=>{
-			document.documentElement.style.setProperty('--default-text-color', document.querySelector('#design_color_text').value);
-		});
-		document.querySelector('#design_color_bg').addEventListener('change', ()=>{
-			document.documentElement.style.setProperty('--default-background-color', document.querySelector('#design_color_bg').value);
-		});
-
 		document.querySelector('#issueShareCode').addEventListener('click', ()=>{
 			console.debug('#issueShareCode clicked');
 
@@ -457,6 +429,34 @@
 			} else if (document.querySelector('#running_mode').value=='r') {
 				Array.prototype.forEach.call(document.querySelectorAll('.mode_r'), (e)=>{ e.style.display='block'; });
 			}
+		});
+
+		(()=>{
+			/** 
+			 * 即時実行関数式 (IIFE) + アロー関数
+			*/
+			console.debug(
+				document.querySelector('#design_color_text').value, 
+				String(getComputedStyle( document.querySelector(':root') ).getPropertyValue('--default-text-color')).trim().substr(0, 7)
+			);
+			document.querySelector('#design_color_text').value = String(getComputedStyle( document.querySelector(':root') ).getPropertyValue('--default-text-color')).trim().substr(0, 7)
+			document.documentElement.style.setProperty( '--default-text-color', String(getComputedStyle( document.querySelector(':root') ).getPropertyValue('--default-text-color')).trim().substr(0, 7) );
+			console.debug(
+				document.querySelector('#design_color_bg').value, 
+				String(getComputedStyle( document.querySelector(':root') ).getPropertyValue('--default-background-color')).trim().substr(0, 7)
+			);
+			document.querySelector('#design_color_bg').value = String(getComputedStyle( document.querySelector(':root') ).getPropertyValue('--default-background-color')).trim().substr(0, 7)
+			document.documentElement.style.setProperty( '--default-background-color', String(getComputedStyle( document.querySelector(':root') ).getPropertyValue('--default-background-color')).trim().substr(0, 7) );
+		})();
+		/**
+		 * javascriptでCSS変数の値を取得・変更するサンプルコード
+		 * https://webwork-plus.com/content/design/custom-properties-js.html#7
+		*/
+		document.querySelector('#design_color_text').addEventListener('change', ()=>{
+			document.documentElement.style.setProperty('--default-text-color', document.querySelector('#design_color_text').value);
+		});
+		document.querySelector('#design_color_bg').addEventListener('change', ()=>{
+			document.documentElement.style.setProperty('--default-background-color', document.querySelector('#design_color_bg').value);
 		});
 
 		(() => {
