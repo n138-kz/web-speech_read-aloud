@@ -38,6 +38,10 @@
 			<option value="r" disabled>文字起こし表示</option>
 		</select>
 	</div>
+	<div>
+		<input type="color" value="#000000" id="design_color_text">
+		<input type="color" value="#FFFFFF" id="design_color_bg">
+	</div>
 	<div class="mode_w">
 		<button id="issueShareCode">共有/認証コード 発行</button>
 	</div>
@@ -201,8 +205,36 @@
 			speech.start() 
 		};
 
+		(()=>{
+			/** 
+			 * 即時実行関数式 (IIFE) + アロー関数
+			*/
+			console.debug(
+				document.querySelector('#design_color_text').value, 
+				String(getComputedStyle( document.querySelector(':root') ).getPropertyValue('--default-text-color')).trim().substr(0, 7)
+			);
+			document.querySelector('#design_color_text').value = String(getComputedStyle( document.querySelector(':root') ).getPropertyValue('--default-text-color')).trim().substr(0, 7)
+			document.documentElement.style.setProperty( '--default-text-color', String(getComputedStyle( document.querySelector(':root') ).getPropertyValue('--default-text-color')).trim().substr(0, 7) );
+			console.debug(
+				document.querySelector('#design_color_bg').value, 
+				String(getComputedStyle( document.querySelector(':root') ).getPropertyValue('--default-background-color')).trim().substr(0, 7)
+			);
+			document.querySelector('#design_color_bg').value = String(getComputedStyle( document.querySelector(':root') ).getPropertyValue('--default-background-color')).trim().substr(0, 7)
+			document.documentElement.style.setProperty( '--default-background-color', String(getComputedStyle( document.querySelector(':root') ).getPropertyValue('--default-background-color')).trim().substr(0, 7) );
+		})();
+		/**
+		 * javascriptでCSS変数の値を取得・変更するサンプルコード
+		 * https://webwork-plus.com/content/design/custom-properties-js.html#7
+		*/
+		document.querySelector('#design_color_text').addEventListener('change', ()=>{
+			document.documentElement.style.setProperty('--default-text-color', document.querySelector('#design_color_text').value);
+		});
+		document.querySelector('#design_color_bg').addEventListener('change', ()=>{
+			document.documentElement.style.setProperty('--default-background-color', document.querySelector('#design_color_bg').value);
+		});
+
 		document.querySelector('#issueShareCode').addEventListener('click', ()=>{
-			console.log('#issueShareCode clicked');
+			console.debug('#issueShareCode clicked');
 
 			let xhr = new XMLHttpRequest();
 			xhr.onreadystatechange = ()=>{
