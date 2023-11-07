@@ -205,7 +205,10 @@
 			speech.start() 
 		};
 
-		function setDefaultColor() {
+		(()=>{
+			/** 
+			 * 即時実行関数式 (IIFE) + アロー関数
+			*/
 			console.debug(
 				document.querySelector('#design_color_text').value,
 				String(getComputedStyle( document.querySelector(':root') ).getPropertyValue('--default-text-color')).trim().substr(0, 7)
@@ -216,7 +219,7 @@
 				String(getComputedStyle( document.querySelector(':root') ).getPropertyValue('--default-background-color')).trim().substr(0, 7)
 			);
 			document.querySelector('#design_color_bg').value = String(getComputedStyle( document.querySelector(':root') ).getPropertyValue('--default-background-color')).trim().substr(0, 7);
-		};setDefaultColor();
+		})();
 		document.querySelector('#issueShareCode').addEventListener('click', ()=>{
 			console.log('#issueShareCode clicked');
 
