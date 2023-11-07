@@ -467,6 +467,10 @@
 				delete searchQuery[index];
 			}
 			console.log(searchQuery);
+			document.querySelector('#design_color_text').value = !!searchQuery.color1 ? searchQuery.color1 : document.querySelector('#design_color_text').value;
+			document.querySelector('#design_color_text').dispatchEvent(new Event('change'));
+			document.querySelector('#design_color_bg').value = !!searchQuery.color2 ? searchQuery.color2 : document.querySelector('#design_color_bg').value;
+			document.querySelector('#design_color_bg').dispatchEvent(new Event('change'));
 		})();
 	</script>
 </body>
