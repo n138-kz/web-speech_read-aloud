@@ -262,10 +262,6 @@
 					document.querySelector('#mode_w_form_authncode').readOnly=true;
 					document.querySelector('#mode_w_form_sharecode').disabled=false;
 					document.querySelector('#mode_w_form_authncode').disabled=false;
-					document.querySelector('#mode_r_form_sharecode').readOnly=true;
-					document.querySelector('#mode_r_form_authncode').readOnly=true;
-					document.querySelector('#mode_r_form_sharecode').disabled=false;
-					document.querySelector('#mode_r_form_authncode').disabled=false;
 
 					document.querySelector('#issueShareCode').disabled=true;
 					document.querySelector('#running_mode').disabled=true;
@@ -345,6 +341,11 @@
 					mode_r_transcription_status.innerText = '◉ Connecting';
 					mode_r_transcription_status.style.color = 'var(--text-color-orange)';
 				}
+
+				document.querySelector('#mode_r_form_sharecode').readOnly=true;
+				document.querySelector('#mode_r_form_authncode').readOnly=true;
+				document.querySelector('#mode_r_form_sharecode').disabled=false;
+				document.querySelector('#mode_r_form_authncode').disabled=false;
 
 				mode_r_transcription_start.disabled = true;
 				setInterval(()=>{
