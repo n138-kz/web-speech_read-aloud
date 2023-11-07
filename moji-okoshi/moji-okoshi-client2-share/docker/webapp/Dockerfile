@@ -24,3 +24,5 @@ RUN set -x && \
 RUN set -x && \
 	apt-get -y install certbot
 
+RUN set -x && \
+	apt-get -y install software-properties-common
