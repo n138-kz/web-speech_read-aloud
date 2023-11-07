@@ -294,6 +294,10 @@
 			);
 		});
 
+		const mode_r_transcription_start = document.getElementById('mode_r_transcription_start');
+		const content_r = document.getElementById('content_r');
+
+
 		document.querySelector('#running_mode').addEventListener('change', ()=>{
 			Array.prototype.forEach.call(document.querySelectorAll('.mode_w'), (e)=>{ e.style.display='none'; });
 			Array.prototype.forEach.call(document.querySelectorAll('.mode_r'), (e)=>{ e.style.display='none'; });
