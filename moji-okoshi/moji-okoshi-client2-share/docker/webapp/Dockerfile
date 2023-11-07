@@ -26,3 +26,6 @@ RUN set -x && \
 
 RUN set -x && \
 	certbot --version
+
+RUN set -x && \
+	apt-get -y install python3-certbot-apache
