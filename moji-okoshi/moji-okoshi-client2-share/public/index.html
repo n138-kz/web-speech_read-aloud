@@ -12,6 +12,9 @@
 			--default-text-color: #000000FF;
 			--text-color-red: #FF0000FF;
 			--text-color-green: #009900FF;
+			--text-color-orange: #FFA500FF;
+			--default-formbox-background-color: #FFFFFFFF;
+			--default-formbox-text-color: #000000FF;
 		}
 		html {
 			margin: var(--margin-padding--defaultsize);
@@ -22,6 +25,9 @@
 		body {
 			margin: var(--margin-padding--defaultsize);
 			padding: var(--margin-padding--defaultsize);
+		}
+		input {
+			background-color: var(--default-formbox-background-color);
 		}
 		.mode_w {
 			display: block;
@@ -35,7 +41,7 @@
 	<div>
 		<select id="running_mode">
 			<option value="w">文字起こし専用</option>
-			<option value="r" disabled>文字起こし表示</option>
+			<option value="r">文字起こし表示</option>
 		</select>
 	</div>
 	<div>
@@ -114,8 +120,18 @@
 				speech.start();
 				mode_w_transcription_start.disabled = true;
 				mode_w_transcription_status = document.getElementById('mode_w_transcription_status');
-				mode_w_transcription_status.innerText = '◉ REC';
-				mode_w_transcription_status.style.color = 'var(--text-color-red)';
+				try {
+					navigator.mediaDevices.getUserMedia({audio: true}).then(stream => {
+						console.log(stream);
+					}).catch(err => {
+						console.error(err);
+					})
+					mode_w_transcription_status.innerText = '◉ REC';
+					mode_w_transcription_status.style.color = 'var(--text-color-red)';
+				} catch (error) {
+					mode_w_transcription_status.innerText = '◉ DeviceAccessError';
+					mode_w_transcription_status.style.color = 'var(--text-color-red)';
+				}
 			} catch (error) {
 				console.error(error);
 				mode_w_transcription_start.disabled = false;
@@ -256,10 +272,6 @@
 					document.querySelector('#mode_w_form_authncode').readOnly=true;
 					document.querySelector('#mode_w_form_sharecode').disabled=false;
 					document.querySelector('#mode_w_form_authncode').disabled=false;
-					document.querySelector('#mode_r_form_sharecode').readOnly=true;
-					document.querySelector('#mode_r_form_authncode').readOnly=true;
-					document.querySelector('#mode_r_form_sharecode').disabled=false;
-					document.querySelector('#mode_r_form_authncode').disabled=false;
 
 					document.querySelector('#issueShareCode').disabled=true;
 					document.querySelector('#running_mode').disabled=true;
@@ -269,6 +281,13 @@
 					document.title += ' ' + response.sharecode;
 					document.title += ' /';
 					document.title += ' ' + response.authncode;
+
+					let token = {
+						iat: response.timestamp,
+						sharecode: response.sharecode,
+						authncode: response.authncode,
+					};
+					sessionStorage.setItem( (btoa(location.href)).slice(0, 16) + '.' + 'sharecode', JSON.stringify(token) );
 
 				} else if ( xhr.readyState === 4 && xhr.status >= 400 ) {
 					console.debug( xhr, 'err', xhr.responseText, xhr.readyState, xhr.status, xhr.statusText );
@@ -287,6 +306,134 @@
 				+ '&token='+''
 			);
 		});
+
+		const mode_r_transcription_start = document.getElementById('mode_r_transcription_start');
+		const content_r = document.getElementById('content_r');
+
+		mode_r_transcription_start.addEventListener('click' , function() {
+			try {
+				mode_r_form_sharecode = document.querySelector('#mode_r_form_sharecode');
+				mode_r_form_authncode = document.querySelector('#mode_r_form_authncode');
+				mode_r_transcription_status = document.getElementById('mode_r_transcription_status');
+
+				mode_r_form_sharecode.style.backgroundColor = 'var(--default-formbox-background-color)';
+				mode_r_form_authncode.style.backgroundColor = 'var(--default-formbox-background-color)';
+				Array.prototype.forEach.call( document.querySelectorAll('.mode_r_form_validation_error'), (e)=>{ e.remove(); });
+
+				if (false) {
+				} else if (mode_r_form_sharecode.value.length<1) {
+					mode_r_form_sharecode.style.backgroundColor = 'var(--text-color-red)';
+					elm = document.createElement('span');
+					elm.classList.add('mode_r_form_validation_error');
+					elm.style.color='var(--text-color-red)';
+					elm.innerText='必須項目です。/ Is Required.';
+					mode_r_form_sharecode.after(elm);
+					throw new Error('Parameter is require!', mode_r_form_sharecode);
+				} else if (mode_r_form_authncode.value.length<1) {
+					mode_r_form_authncode.style.backgroundColor = 'var(--text-color-red)';
+					elm = document.createElement('span');
+					elm.classList.add('mode_r_form_validation_error');
+					elm.style.color='var(--text-color-red)';
+					elm.innerText='必須項目です。/ Is Required.';
+					mode_r_form_authncode.after(elm);
+					throw new Error('Parameter is require!', mode_r_form_authncode);
+				} else if (mode_r_form_sharecode.value.length!=6) {
+					mode_r_form_sharecode.style.backgroundColor = 'var(--text-color-red)';
+					elm = document.createElement('span');
+					elm.classList.add('mode_r_form_validation_error');
+					elm.style.color='var(--text-color-red)';
+					elm.innerText='正しいコードを入力してください。 / Invalid code.';
+					mode_r_form_sharecode.after(elm);
+					throw new Error('Parameter is require!', mode_r_form_sharecode);
+				} else if (mode_r_form_authncode.value.length!=8) {
+					mode_r_form_authncode.style.backgroundColor = 'var(--text-color-red)';
+					elm = document.createElement('span');
+					elm.classList.add('mode_r_form_validation_error');
+					elm.style.color='var(--text-color-red)';
+					elm.innerText='正しいコードを入力してください。 / Invalid code.';
+					mode_r_form_authncode.after(elm);
+					throw new Error('Parameter is require!', mode_r_form_authncode);
+				} else if (false) {
+				} else {
+					mode_r_transcription_status.innerText = '◉ Connecting';
+					mode_r_transcription_status.style.color = 'var(--text-color-orange)';
+				}
+
+				document.querySelector('#mode_r_form_sharecode').readOnly=true;
+				document.querySelector('#mode_r_form_authncode').readOnly=true;
+				document.querySelector('#mode_r_form_sharecode').disabled=false;
+				document.querySelector('#mode_r_form_authncode').disabled=false;
+				document.querySelector('#running_mode').disabled=true;
+
+				mode_r_transcription_start.disabled = true;
+				setInterval(()=>{
+					mode_r_transcription_status.innerText = '◉ Connecting';
+					mode_r_transcription_status.style.color = 'var(--text-color-orange)';
+
+					let xhr = new XMLHttpRequest();
+					xhr.onreadystatechange = ()=>{
+						if ( xhr.readyState === 4 && xhr.status >= 200 && xhr.status < 300 ) {
+							console.debug( xhr, '2xx', xhr.responseText, xhr.readyState, xhr.status, xhr.statusText );
+	
+							let responseText = xhr.responseText;
+							console.debug( responseText );
+	
+							let response = JSON.parse(responseText);
+							console.log( response );
+
+							document.querySelector('#mode_r_form_connectivity').innerText = response.connected ? '● Connected' : '● Disconnect';
+							document.querySelector('#mode_r_form_connectivity').style.color = response.connected ? 'var(--text-color-green)' : 'var(--text-color-red)';
+							
+							mode_r_transcription_status.innerText = '◉ Connecting';
+							mode_r_transcription_status.style.color = 'var(--text-color-orange)';
+
+							let transcription = response.transcription;
+							console.log( transcription );
+
+							document.querySelector('#content_r').innerHTML='';
+							transcription.forEach(e => {
+								elm = document.createElement('div');
+								elm.dataset.uuid = e.uuid;
+								elm.dataset.iat = e.iat;
+								elm.dataset.clientip = e.clientip;
+								elm.dataset.sharecode = e.sharecode;
+								elm.innerText = e.transcription;
+								content_r.appendChild(elm);
+							});
+
+							if ( document.querySelector('#mode_r_form_connectivity').style.color == 'var(--text-color-green)' ) {
+								mode_r_transcription_status.innerText = '◉ LIVE';
+								mode_r_transcription_status.style.color = 'var(--text-color-green)';
+							}
+						} else if ( xhr.readyState === 4 && xhr.status >= 400 ) {
+							console.debug( xhr, 'err', xhr.responseText, xhr.readyState, xhr.status, xhr.statusText );
+							mode_r_transcription_status.innerText = '◉ ERROR';
+							mode_r_transcription_status.innerText += ':';
+							mode_r_transcription_status.innerText += '' + xhr.status + '(' + xhr.statusText + ')' + '@http';
+							mode_r_transcription_status.style.color = 'var(--text-color-red)';
+						} else if ( xhr.readyState === 4 ) {
+							console.debug( xhr, 'rs4', xhr.responseText, xhr.readyState, xhr.status, xhr.statusText );
+						} else {
+							console.debug( xhr, 'wip', xhr.responseText, xhr.readyState, xhr.status, xhr.statusText );
+						}
+					};
+					xhr.open(
+						'POST', './pullTranscription/'
+					);
+					xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+					xhr.send(
+						'timestamp='+(Math.floor((new Date()).getTime()/1000))
+						+ '&sharecode='+mode_r_form_sharecode.value
+						+ '&authncode='+mode_r_form_authncode.value
+						+ '&token='+''
+					);
+				},1000);
+			} catch (error) {
+				console.error(error);
+				mode_r_transcription_status.innerText = '';
+			}
+		});
+
 		document.querySelector('#running_mode').addEventListener('change', ()=>{
 			Array.prototype.forEach.call(document.querySelectorAll('.mode_w'), (e)=>{ e.style.display='none'; });
 			Array.prototype.forEach.call(document.querySelectorAll('.mode_r'), (e)=>{ e.style.display='none'; });
@@ -295,6 +442,14 @@
 			document.querySelector('#mode_w_form_authncode').value='';
 			document.querySelector('#mode_r_form_sharecode').value='';
 			document.querySelector('#mode_r_form_authncode').value='';
+
+			let token = sessionStorage.getItem( (btoa(location.href)).slice(0, 16) + '.' + 'sharecode' );
+			if (!!token) {
+				token = JSON.parse(token);
+				console.debug(token);
+				document.querySelector('#mode_r_form_sharecode').value=token.sharecode;
+				document.querySelector('#mode_r_form_authncode').value=token.authncode;
+			}
 
 			if (false) {
 			} else if (document.querySelector('#running_mode').value=='w') {
