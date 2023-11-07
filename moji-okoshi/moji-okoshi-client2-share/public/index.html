@@ -433,6 +433,14 @@
 			document.querySelector('#mode_r_form_sharecode').value='';
 			document.querySelector('#mode_r_form_authncode').value='';
 
+			let token = sessionStorage.getItem( (btoa(location.href)).slice(0, 16) + '.' + 'sharecode' );
+			if (!!token) {
+				token = JSON.parse(token);
+				console.debug(token);
+				document.querySelector('#mode_r_form_sharecode').value=token.sharecode;
+				document.querySelector('#mode_r_form_authncode').value=token.authncode;
+			}
+
 			if (false) {
 			} else if (document.querySelector('#running_mode').value=='w') {
 				Array.prototype.forEach.call(document.querySelectorAll('.mode_w'), (e)=>{ e.style.display='block'; });
