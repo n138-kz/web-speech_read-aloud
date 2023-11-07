@@ -8,6 +8,9 @@ services:
          - type: bind
            source: ../public/
            target: /var/www/html
+         - type: volume
+           source: webapp-etc_mojiokoshi_v2
+           target: /etc
       restart: unless-stopped
       networks:
          - frontend_mojiokoshi_v2
@@ -42,6 +45,7 @@ services:
 volumes:
    db-store_mojiokoshi_v2:
    pgadmin_mojiokoshi_v2:
+   webapp-etc_mojiokoshi_v2:
 networks:
    frontend_mojiokoshi_v2:
       external: true
