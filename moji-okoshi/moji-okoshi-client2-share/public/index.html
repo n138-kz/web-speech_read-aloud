@@ -216,10 +216,7 @@
 				String(getComputedStyle( document.querySelector(':root') ).getPropertyValue('--default-background-color')).trim().substr(0, 7)
 			);
 			document.querySelector('#design_color_bg').value = String(getComputedStyle( document.querySelector(':root') ).getPropertyValue('--default-background-color')).trim().substr(0, 7);
-		};
-		window.addEventListener('load', ()=>{
-			setDefaultColor();
-		})
+		};setDefaultColor();
 		document.querySelector('#issueShareCode').addEventListener('click', ()=>{
 			console.log('#issueShareCode clicked');
 
