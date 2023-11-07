@@ -120,8 +120,18 @@
 				speech.start();
 				mode_w_transcription_start.disabled = true;
 				mode_w_transcription_status = document.getElementById('mode_w_transcription_status');
-				mode_w_transcription_status.innerText = '◉ REC';
-				mode_w_transcription_status.style.color = 'var(--text-color-red)';
+				try {
+					navigator.mediaDevices.getUserMedia({audio: true}).then(stream => {
+						console.log(stream);
+					}).catch(err => {
+						console.error(err);
+					})
+					mode_w_transcription_status.innerText = '◉ REC';
+					mode_w_transcription_status.style.color = 'var(--text-color-red)';
+				} catch (error) {
+					mode_w_transcription_status.innerText = '◉ DeviceAccessError';
+					mode_w_transcription_status.style.color = 'var(--text-color-red)';
+				}
 			} catch (error) {
 				console.error(error);
 				mode_w_transcription_start.disabled = false;
