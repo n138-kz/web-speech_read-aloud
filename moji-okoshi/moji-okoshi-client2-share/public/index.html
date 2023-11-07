@@ -369,6 +369,21 @@
 							
 							mode_r_transcription_status.innerText = '◉ Connecting';
 							mode_r_transcription_status.style.color = 'var(--text-color-orange)';
+
+							let transcription = response.transcription;
+							console.log( transcription );
+
+							document.querySelector('#content_r').innerHTML='';
+							transcription.forEach(e => {
+								elm = document.createElement('div');
+								elm.dataset.uuid = e.uuid;
+								elm.dataset.iat = e.iat;
+								elm.dataset.clientip = e.clientip;
+								elm.dataset.sharecode = e.sharecode;
+								elm.innerText = e.transcription;
+								content_r.appendChild(elm);
+							});
+
 							if ( document.querySelector('#mode_r_form_connectivity').style.color == 'var(--text-color-green)' ) {
 								mode_r_transcription_status.innerText = '◉ LIVE';
 								mode_r_transcription_status.style.color = 'var(--text-color-green)';
