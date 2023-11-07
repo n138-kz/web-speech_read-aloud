@@ -4,10 +4,14 @@ services:
       build: webapp/
       ports:
          - "80"
+         - "443"
       volumes:
          - type: bind
            source: ../public/
            target: /var/www/html
+         - type: volume
+           source: webapp-etc_mojiokoshi_v2
+           target: /etc
       restart: unless-stopped
       networks:
          - frontend_mojiokoshi_v2
@@ -28,6 +32,7 @@ services:
       image: dpage/pgadmin4:latest
       ports:
          - "80"
+         - "443"
       environment:
          - PGADMIN_DEFAULT_EMAIL=phppgadmin@n138.jp
          - PGADMIN_DEFAULT_PASSWORD=phppgadmin
@@ -42,6 +47,7 @@ services:
 volumes:
    db-store_mojiokoshi_v2:
    pgadmin_mojiokoshi_v2:
+   webapp-etc_mojiokoshi_v2:
 networks:
    frontend_mojiokoshi_v2:
       external: true
