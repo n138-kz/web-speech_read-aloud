@@ -316,7 +316,7 @@
 					elm.innerText='必須項目です。/ Is Required.';
 					mode_r_form_sharecode.after(elm);
 					throw new Error('Parameter is require!', mode_r_form_sharecode);
-				} else if (mode_r_form_authncode.value.length<1) {
+				} else if (mode_r_form_authncode.value.length!=8) {
 					mode_r_form_authncode.style.backgroundColor = 'var(--text-color-red)';
 					elm = document.createElement('span');
 					elm.classList.add('mode_r_form_validation_error');
