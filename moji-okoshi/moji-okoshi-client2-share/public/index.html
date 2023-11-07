@@ -332,6 +332,14 @@
 					elm.innerText='正しいコードを入力してください。 / Invalid code.';
 					mode_r_form_sharecode.after(elm);
 					throw new Error('Parameter is require!', mode_r_form_sharecode);
+				} else if (mode_r_form_authncode.value.length!=8) {
+					mode_r_form_authncode.style.backgroundColor = 'var(--text-color-red)';
+					elm = document.createElement('span');
+					elm.classList.add('mode_r_form_validation_error');
+					elm.style.color='var(--text-color-red)';
+					elm.innerText='正しいコードを入力してください。 / Invalid code.';
+					mode_r_form_authncode.after(elm);
+					throw new Error('Parameter is require!', mode_r_form_authncode);
 				} else if (false) {
 				} else {
 					mode_r_transcription_status.innerText = '◉ Connecting';
