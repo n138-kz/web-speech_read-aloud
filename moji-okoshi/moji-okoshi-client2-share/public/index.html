@@ -308,7 +308,7 @@
 				Array.prototype.forEach.call( document.querySelectorAll('.mode_r_form_validation_error'), (e)=>{ e.remove(); });
 
 				if (false) {
-				} else if (mode_r_form_sharecode.value.length!=6) {
+				} else if (mode_r_form_sharecode.value.length<1) {
 					mode_r_form_sharecode.style.backgroundColor = 'var(--text-color-red)';
 					elm = document.createElement('span');
 					elm.classList.add('mode_r_form_validation_error');
