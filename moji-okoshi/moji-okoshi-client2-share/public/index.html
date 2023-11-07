@@ -272,6 +272,13 @@
 					document.title += ' /';
 					document.title += ' ' + response.authncode;
 
+					let token = {
+						iat: response.timestamp,
+						sharecode: response.sharecode,
+						authncode: response.authncode,
+					};
+					sessionStorage.setItem( (btoa(location.href)).slice(0, 16) + '.' + 'sharecode', JSON.stringify(token) );
+
 				} else if ( xhr.readyState === 4 && xhr.status >= 400 ) {
 					console.debug( xhr, 'err', xhr.responseText, xhr.readyState, xhr.status, xhr.statusText );
 				} else if ( xhr.readyState === 4 ) {
